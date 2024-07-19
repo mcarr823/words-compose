@@ -10,6 +10,7 @@ import java.io.File
  *
  * eg. CSV file parser {@link dev.mcarr.words.data.imports.CsvFile}
  * JSON file parser {@link dev.mcarr.words.data.imports.JsonFile}
+ * XML file parser {@link dev.mcarr.words.data.imports.XmlFile}
  * */
 abstract class WordFile {
 
