@@ -9,6 +9,7 @@ import java.io.File
  * This is an abstract class which any file parsers should implement.
  *
  * eg. CSV file parser {@link dev.mcarr.words.data.imports.CsvFile}
+ * JSON file parser {@link dev.mcarr.words.data.imports.JsonFile}
  * */
 abstract class WordFile {
 
