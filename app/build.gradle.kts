@@ -72,6 +72,8 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.room.runtime)
     implementation(libs.core.ktx)
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.cio)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
