@@ -28,7 +28,7 @@ fun OnlineSourceScreen(
         PaddedText(text = "Words can query an online API to retrieve a new word whenever you play the game.")
         PaddedText(text = "This is the quickest way to get started. But the downside is that you'll need an internet connection whenever you want to play.")
         PaddedText(text = "Also, the online word list APIs are hosted by other people, so they could shut down at any time.")
-        PaddedText(text = "If those caveats are acceptable, you can choose one of the websites below to get started.")
+        PaddedText(text = "If you want to proceed, tap on one of the providers below to get started.")
 
         NavCard(text = "Heroku", onClick = { done(WordSource.ONLINE_HEROKU) })
         NavCard(text = "Rando", onClick = { done(WordSource.ONLINE_RANDO) })
