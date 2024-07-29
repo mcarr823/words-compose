@@ -4,6 +4,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
+import org.json.JSONArray
 
 /**
  * Abstract class which any http endpoint clients should inherit from.
@@ -12,6 +13,27 @@ import io.ktor.client.statement.bodyAsText
  * api implementation clients and the underlying ktor library.
  * */
 abstract class AbstractHttpClient() {
+
+    /**
+     * Base URL from which any HTTP requests will be performed.
+     * eg. https://api.my.website
+     * */
+    abstract val baseUrl: String
+
+    /**
+     * Get a single word from the endpoint.
+     *
+     * @return A word
+     * */
+    abstract suspend fun getRandomWord(): String
+
+    /**
+     * Get a single word of the requested length from the endpoint.
+     *
+     * @param length Length of the word to request
+     * @return A word of the requested length
+     * */
+    abstract suspend fun getRandomWord(length: Int): String
 
     /**
      * Creates a HTTP client, uses it, then closes the client.
@@ -40,6 +62,38 @@ abstract class AbstractHttpClient() {
     suspend fun get(url: String): String {
         val response = getClient{ it.get(url) }
         return response.bodyAsText()
+    }
+
+    /**
+     * Performs a request to an API endpoint, expecting
+     * the response to be an array of strings.
+     *
+     * Example response:
+     * ["camos"]
+     *
+     * @param query Query string to append to the end of the API endpoint.
+     * @return A list of words returned from the API endpoint.
+     * */
+    suspend fun getJsonStringArray(query: String): List<String> {
+        val url = "$baseUrl/$query"
+        val str = get(url)
+        val json = JSONArray(str)
+        val len = json.length()
+        return (0 until len).map { json.getString(it) }
+    }
+
+    /**
+     * Performs a request to an API endpoint, expecting
+     * the response to be an array of strings.
+     *
+     * Example response:
+     * ["camos"]
+     *
+     * @param query Query string to append to the end of the API endpoint.
+     * @return The first word returned from the API endpoint
+     * */
+    suspend fun getJsonStringArraySingle(query: String): String {
+        return getJsonStringArray(query)[0]
     }
 
 }
