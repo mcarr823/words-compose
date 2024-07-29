@@ -15,12 +15,14 @@ import dev.mcarr.words.ui.components.PreviewComponent
  * or the Remote Source selection screen, depending on how
  * the user wants to retrieve words when playing the game.
  *
- * @param goToLocalFileScreen Callback to invoke when Local File button is clicked
+ * @param goToLocalFileScreen Callback to invoke when the Upload button is clicked
+ * @param goToDownloadSourceScreen Callback to invoke when the Download button is clicked
  * @param goToOnlineSourceScreen Callback to invoke when Online Source button is clicked
  * */
 @Composable
 fun SetupScreen(
     goToLocalFileScreen: () -> Unit,
+    goToDownloadSourceScreen: () -> Unit,
     goToOnlineSourceScreen: () -> Unit
 ) {
 
@@ -28,11 +30,14 @@ fun SetupScreen(
         Heading(text = "Setup")
 
         PaddedText(text = "This game needs to be supplied with a list of words in order to be played.")
-        PaddedText(text = "If you upload your own list of words, you can play this game offline.")
-        PaddedText(text = "If you choose an online source, you will need to be online to play.")
+        PaddedText(text = "There are three ways you can do this:")
+        PaddedText(text = "1. upload your own list of words")
+        PaddedText(text = "2. download a list of words")
+        PaddedText(text = "3. query an online API whenever you play")
 
-        NavCard(text = "Local File", onClick = goToLocalFileScreen)
-        NavCard(text = "Online Source", onClick = goToOnlineSourceScreen)
+        NavCard(text = "Upload Your Own List", onClick = goToLocalFileScreen)
+        NavCard(text = "Download A Word List", onClick = goToDownloadSourceScreen)
+        NavCard(text = "Use An Online Word List API", onClick = goToOnlineSourceScreen)
     }
 
 }
@@ -43,6 +48,7 @@ fun PreviewSetupScreen(){
     PreviewComponent {
         SetupScreen(
             goToLocalFileScreen = {},
+            goToDownloadSourceScreen = {},
             goToOnlineSourceScreen = {}
         )
     }
