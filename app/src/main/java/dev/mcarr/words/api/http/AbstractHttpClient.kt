@@ -1,5 +1,6 @@
 package dev.mcarr.words.api.http
 
+import dev.mcarr.words.interfaces.WordSourceClientInterface
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.request.get
@@ -12,28 +13,13 @@ import org.json.JSONArray
  * Provides a layer of abstraction between the different endpoint
  * api implementation clients and the underlying ktor library.
  * */
-abstract class AbstractHttpClient() {
+abstract class AbstractHttpClient() : WordSourceClientInterface {
 
     /**
      * Base URL from which any HTTP requests will be performed.
      * eg. https://api.my.website
      * */
     abstract val baseUrl: String
-
-    /**
-     * Get a single word from the endpoint.
-     *
-     * @return A word
-     * */
-    abstract suspend fun getRandomWord(): String
-
-    /**
-     * Get a single word of the requested length from the endpoint.
-     *
-     * @param length Length of the word to request
-     * @return A word of the requested length
-     * */
-    abstract suspend fun getRandomWord(length: Int): String
 
     /**
      * Creates a HTTP client, uses it, then closes the client.
