@@ -28,14 +28,17 @@ fun ImportJsonFileScreen() {
     Column {
         Heading(text = "JSON File")
 
-        PaddedText(text = "JSON files are expected to be in the following format:")
+        PaddedText(text = "JSON files are expected to be in either of the following formats:")
 
         PaddedText(text = """
             {"words":["a", "few", "example", "words"]}
         """.trimIndent())
+        PaddedText(text = "or")
+        PaddedText(text = """
+            ["a", "few", "example", "words"]
+        """.trimIndent())
 
-        PaddedText(text = "The JSON root is expected to be an object with a single \"words\" attribute.")
-        PaddedText(text = "The \"words\" attribute should be an array of strings, each of which will be inserted into the database as a word.")
+        PaddedText(text = "The word list should be an array of strings, optionally within the \"words\" attribute of an object.")
 
         Row(
             modifier = Modifier.fillMaxWidth().padding(8.dp),

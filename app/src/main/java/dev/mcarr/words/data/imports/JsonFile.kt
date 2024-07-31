@@ -1,6 +1,7 @@
 package dev.mcarr.words.data.imports
 
 import dev.mcarr.words.data.entities.Word
+import org.json.JSONArray
 import org.json.JSONObject
 import java.io.File
 
@@ -10,13 +11,16 @@ import java.io.File
  * Expected format is an object with a "words" parameter.
  * The "words" parameter should be an array of words.
  *
+ * Alternatively, it also supports an array of words
+ * as the root node instead.
+ *
  * eg.
  * ```
- * {"words":[
- *   "fiver",
- *   "words",
- *   "ports"
- * ]}
+ * {"words":["fiver","words","ports"]}
+ * ```
+ * or
+ * ```
+ * ["fiver","words","ports"]
  * ```
  *
  * @param file JSON file containing the words to import
@@ -25,8 +29,13 @@ class JsonFile(file: File) : WordFile() {
 
     init {
         val data = file.readText()
-        val json = JSONObject(data)
-        val jsonWords = json.getJSONArray("words")
+        val jsonWords =
+            try {
+                val json = JSONObject(data)
+                json.getJSONArray("words")
+            }catch (e: Exception){
+                JSONArray(data)
+            }
         val length = jsonWords.length()
         (0 until length)
             .map(jsonWords::getString)
