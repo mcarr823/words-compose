@@ -2,7 +2,9 @@ package dev.mcarr.words.data.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.junit4.ComposeContentTestRule
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
@@ -56,18 +58,33 @@ abstract class AbstractScreenTest {
      * Set of tests to conduct on a Button component.
      *
      * @param text The text which is expected to be displayed in the button.
+     * @param alwaysVisible If true, assert that the button must be visible, and run more
+     * comprehensive tests which are only possible if it's visible.
      * @param getButtonClickedCount Callback to retrieve the variable which is incremented
      * whenever the button is pressed.
      * */
     fun testButton(
         text: String,
+        alwaysVisible: Boolean = true,
         getButtonClickedCount: () -> Int
     ){
 
         composeTestRule.onNodeWithText(text).run {
             assertExists()
-            assertIsDisplayed()
             assertTextEquals(text)
+            assertIsEnabled()
+
+            // If the button won't necessarily be visible
+            // (eg. it's too far down the screen and might not
+            // be rendered) then we shouldn't run the full set
+            // of tests unless the button is visible.
+            if (!alwaysVisible){
+                if (!isDisplayed()){
+                    return@run
+                }
+            }
+
+            assertIsDisplayed()
 
             assertEquals(0, getButtonClickedCount())
 
