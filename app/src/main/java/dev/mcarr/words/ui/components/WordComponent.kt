@@ -44,8 +44,11 @@ fun PreviewWordComponent(){
     PreviewComponent {
         Column {
             WordComponent(word = "ABCDE")
-            WordComponent(word = "ABCDE")
-            WordComponent(word = "ABCDE")
+            WordComponent(word = "FGHIJ")
+            WordComponent(word = "KLMNO")
+            WordComponent(word = "PQRST")
+            WordComponent(word = "UVWXY")
+            WordComponent(word = "Z    ")
         }
     }
 }

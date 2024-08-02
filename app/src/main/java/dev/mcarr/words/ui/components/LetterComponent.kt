@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mcarr.words.ui.theme.Typography
@@ -44,7 +45,8 @@ fun LetterComponent(
             modifier = Modifier.padding(
                 vertical = 8.dp,
                 horizontal = 16.dp
-            )
+            ),
+            fontFamily = FontFamily.Monospace
         )
     }
 
