@@ -1,41 +1,21 @@
 package dev.mcarr.words.ui.screens
 
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.isDisplayed
-import androidx.compose.ui.test.junit4.ComposeContentTestRule
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Assert.assertEquals
-import org.junit.Rule
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
 /**
- * Abstract class for any UI testing classes to inherit from.
+ * Abstract class for any screen testing classes to inherit from.
  *
  * Provides a set of different common tests which they can run
  * on components which any screen is likely to have.
  * */
-@RunWith(RobolectricTestRunner::class)
-abstract class AbstractScreenTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
-    /**
-     * Convenience function for calling composeTestRule.setContent{}
-     *
-     * @param composable Composable to render
-     * */
-    fun setContent(
-        composable: @Composable () -> Unit
-    ){
-        composeTestRule.setContent(composable)
-    }
+abstract class AbstractScreenTest : AbstractUiUnitTest() {
 
     /**
      * Set of tests to conduct on a Heading component.
