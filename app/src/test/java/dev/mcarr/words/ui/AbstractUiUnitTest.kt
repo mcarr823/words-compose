@@ -3,6 +3,7 @@ package dev.mcarr.words.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.runner.RunWith
@@ -44,6 +45,23 @@ abstract class AbstractUiUnitTest {
         callback: SemanticsNodeInteraction.() -> Unit
     ){
         composeTestRule.onNodeWithText(text).run {
+            callback()
+        }
+    }
+
+    /**
+     * Run some unit tests on a node which has a
+     * test tag matching the `tag` parameter.
+     *
+     * @param tag Tag used to identify the component
+     * @param callback Block of code to run within the
+     * retrieved component's context
+     * */
+    fun onNodeWithTag(
+        tag: String,
+        callback: SemanticsNodeInteraction.() -> Unit
+    ){
+        composeTestRule.onNodeWithTag(tag).run {
             callback()
         }
     }
