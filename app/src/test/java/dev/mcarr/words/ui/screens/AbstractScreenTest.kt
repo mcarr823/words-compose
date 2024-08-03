@@ -1,4 +1,4 @@
-package dev.mcarr.words.data.ui.screens
+package dev.mcarr.words.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.test.assertIsDisplayed

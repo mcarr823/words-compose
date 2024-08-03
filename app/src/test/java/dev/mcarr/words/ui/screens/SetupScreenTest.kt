@@ -1,4 +1,4 @@
-package dev.mcarr.words.data.ui.screens
+package dev.mcarr.words.ui.screens
 
 import dev.mcarr.words.ui.screens.SetupScreen
 import org.junit.Test

@@ -1,4 +1,4 @@
-package dev.mcarr.words.data.ui.screens
+package dev.mcarr.words.ui.screens
 
 import androidx.compose.ui.test.junit4.createComposeRule
 import dev.mcarr.words.ui.screens.ImportCsvFileScreen

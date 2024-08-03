@@ -1,4 +1,4 @@
-package dev.mcarr.words.data.ui.screens
+package dev.mcarr.words.ui.screens
 
 import dev.mcarr.words.ui.screens.ImportJsonFileScreen
 import org.junit.Test

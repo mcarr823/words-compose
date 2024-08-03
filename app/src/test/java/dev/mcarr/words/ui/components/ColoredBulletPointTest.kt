@@ -1,4 +1,4 @@
-package dev.mcarr.words.data.ui.components
+package dev.mcarr.words.ui.components
 
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.assertIsDisplayed
