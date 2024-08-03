@@ -17,19 +17,13 @@ class GameScreenViewModel : ViewModel() {
      * Maximum number of previous guesses to show
      * on the game screen
      * */
-    val guessesToShow = 4
-
-    /**
-     * An empty string padded to the target length.
-     * This is used to "clear" a WordComponent
-     * */
-    private val defaultString = "".padEnd(targetLength)
+    private val guessesToShow = 4
 
     /**
      * The player's current guess as to what the word
      * might be
      * */
-    var currentGuess = mutableStateOf(defaultString)
+    var currentGuess = mutableStateOf("")
 
     /**
      * Arraylist holding the player's previous guesses.
@@ -37,7 +31,7 @@ class GameScreenViewModel : ViewModel() {
      * Each string is padded to a length of `targetLength`.
      * */
     val guesses = ArrayList<String>(
-        List(guessesToShow){ defaultString }
+        List(guessesToShow){ "" }
     )
 
     /**
@@ -69,7 +63,7 @@ class GameScreenViewModel : ViewModel() {
      * */
     fun submit(){
         addGuess(currentGuess.value)
-        currentGuess.value = defaultString
+        currentGuess.value = ""
     }
 
 }

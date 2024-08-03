@@ -20,11 +20,12 @@ import androidx.compose.ui.tooling.preview.Preview
  * */
 @Composable
 fun WordComponent(
-    word: String
+    word: String,
+    targetLength: Int,
 ) {
 
     val letters = remember {
-        word.chunked(1)
+        word.padEnd(targetLength, ' ').chunked(1)
     }
 
     Row(
@@ -41,14 +42,15 @@ fun WordComponent(
 @Preview
 @Composable
 fun PreviewWordComponent(){
+    val targetLength = 5
     PreviewComponent {
         Column {
-            WordComponent(word = "ABCDE")
-            WordComponent(word = "FGHIJ")
-            WordComponent(word = "KLMNO")
-            WordComponent(word = "PQRST")
-            WordComponent(word = "UVWXY")
-            WordComponent(word = "Z    ")
+            WordComponent(word = "ABCDE", targetLength = targetLength)
+            WordComponent(word = "FGHIJ", targetLength = targetLength)
+            WordComponent(word = "KLMNO", targetLength = targetLength)
+            WordComponent(word = "PQRST", targetLength = targetLength)
+            WordComponent(word = "UVWXY", targetLength = targetLength)
+            WordComponent(word = "Z", targetLength = targetLength)
         }
     }
 }
