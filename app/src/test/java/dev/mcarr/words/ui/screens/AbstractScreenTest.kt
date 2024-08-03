@@ -4,7 +4,6 @@ import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
 import androidx.compose.ui.test.isDisplayed
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Assert.assertEquals
@@ -26,7 +25,7 @@ abstract class AbstractScreenTest : AbstractUiUnitTest() {
         text: String
     ){
 
-        composeTestRule.onNodeWithText(text).run {
+        onNodeWithText(text) {
             assertExists()
             assertTextEquals(text)
             assertIsDisplayed()
@@ -49,7 +48,7 @@ abstract class AbstractScreenTest : AbstractUiUnitTest() {
         getButtonClickedCount: () -> Int
     ){
 
-        composeTestRule.onNodeWithText(text).run {
+        onNodeWithText(text){
             assertExists()
             assertTextEquals(text)
             assertIsEnabled()
@@ -60,7 +59,7 @@ abstract class AbstractScreenTest : AbstractUiUnitTest() {
             // of tests unless the button is visible.
             if (!alwaysVisible){
                 if (!isDisplayed()){
-                    return@run
+                    return@onNodeWithText
                 }
             }
 
