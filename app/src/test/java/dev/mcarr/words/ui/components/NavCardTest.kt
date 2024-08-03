@@ -4,21 +4,12 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
-import dev.mcarr.words.ui.components.NavCard
+import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
-class NavCardTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
+class NavCardTest : AbstractUiUnitTest() {
 
     @Test
     fun testNavCard(){
@@ -26,13 +17,13 @@ class NavCardTest {
         val text = "Test text"
         var clicked = 0
 
-        composeTestRule.setContent {
+        setContent {
             NavCard(text = text) {
                 clicked++
             }
         }
 
-        composeTestRule.onNodeWithText(text).run {
+        onNodeWithText(text){
             assertExists()
             assertIsDisplayed()
             assertTextEquals(text)

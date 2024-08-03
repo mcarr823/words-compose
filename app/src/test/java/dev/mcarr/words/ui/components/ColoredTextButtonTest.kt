@@ -5,22 +5,12 @@ import androidx.compose.ui.test.assertHasClickAction
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsEnabled
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.onParent
 import androidx.compose.ui.test.performClick
-import dev.mcarr.words.ui.components.ColoredTextButton
+import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Assert.assertEquals
-import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
-class ColoredTextButtonTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
+class ColoredTextButtonTest : AbstractUiUnitTest() {
 
     @Test
     fun testColoredTextButton(){
@@ -30,7 +20,7 @@ class ColoredTextButtonTest {
         val fgColor = Color.White
         var clicked = 0
 
-        composeTestRule.setContent {
+        setContent {
             ColoredTextButton(
                 backgroundColor = bgColor,
                 textColor = fgColor,
@@ -40,7 +30,7 @@ class ColoredTextButtonTest {
             }
         }
 
-        composeTestRule.onNodeWithText(text).run {
+        onNodeWithText(text){
             assertExists()
             assertIsDisplayed()
             assertTextEquals(text)

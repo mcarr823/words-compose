@@ -3,19 +3,10 @@ package dev.mcarr.words.ui.components
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import dev.mcarr.words.ui.components.ColoredBulletPoint
-import org.junit.Rule
+import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
-class ColoredBulletPointTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
+class ColoredBulletPointTest : AbstractUiUnitTest() {
 
     @Test
     fun testColoredBulletPoint(){
@@ -24,7 +15,7 @@ class ColoredBulletPointTest {
         val regularText = "text"
         val fgColor = Color.Green
 
-        composeTestRule.setContent {
+        setContent {
             ColoredBulletPoint(
                 coloredText = coloredText,
                 regularText = regularText,
@@ -33,12 +24,12 @@ class ColoredBulletPointTest {
         }
 
         val combinedText = coloredText+regularText
-        composeTestRule.onNodeWithText(combinedText).run {
+        onNodeWithText(combinedText){
             assertDoesNotExist()
         }
 
         val formattedText = "  •  $coloredText: $regularText"
-        composeTestRule.onNodeWithText(formattedText).run {
+        onNodeWithText(formattedText){
             assertExists()
             assertIsDisplayed()
             assertTextEquals(formattedText)

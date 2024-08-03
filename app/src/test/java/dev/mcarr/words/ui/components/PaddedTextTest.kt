@@ -2,33 +2,22 @@ package dev.mcarr.words.ui.components
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.withStyle
-import dev.mcarr.words.ui.components.PaddedText
-import org.junit.Rule
+import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
-@RunWith(RobolectricTestRunner::class)
-class PaddedTextTest {
-
-    @get:Rule
-    val composeTestRule = createComposeRule()
+class PaddedTextTest : AbstractUiUnitTest() {
 
     @Test
     fun testPaddedTextString(){
 
         val text = "Test text"
 
-        composeTestRule.setContent {
+        setContent {
             PaddedText(text = text)
         }
 
-        composeTestRule.onNodeWithText(text).run {
+        onNodeWithText(text){
             assertExists()
             assertIsDisplayed()
             assertTextEquals(text)
@@ -47,11 +36,11 @@ class PaddedTextTest {
             append(text2)
         }
 
-        composeTestRule.setContent {
+        setContent {
             PaddedText(text = text)
         }
 
-        composeTestRule.onNodeWithText(textCombined).run {
+        onNodeWithText(textCombined){
             assertExists()
             assertIsDisplayed()
             assertTextEquals(textCombined)
