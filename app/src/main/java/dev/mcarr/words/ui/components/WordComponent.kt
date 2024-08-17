@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dev.mcarr.words.enums.Hint
 
 /**
  * Displays a guessed word on the screen.
@@ -33,7 +34,7 @@ fun WordComponent(
         modifier = Modifier.fillMaxWidth()
     ) {
         letters.forEach {
-            LetterComponent(letter = it)
+            LetterComponent(letter = it, hint = Hint.NONE)
         }
     }
 

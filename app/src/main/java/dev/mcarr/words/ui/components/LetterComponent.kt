@@ -14,7 +14,12 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.mcarr.words.enums.Hint
 import dev.mcarr.words.ui.theme.Typography
+import dev.mcarr.words.ui.theme.Blue
+import dev.mcarr.words.ui.theme.Orange
+import dev.mcarr.words.ui.theme.Green
+import dev.mcarr.words.ui.theme.Gray
 
 /**
  * Displays a single letter of a guessed word.
@@ -24,18 +29,29 @@ import dev.mcarr.words.ui.theme.Typography
  * WordComponent.
  *
  * @param letter The letter to display
+ * @param hint Color hinting to apply
  * @see WordComponent
  * */
 @Composable
 fun LetterComponent(
-    letter: String
+    letter: String,
+    hint: Hint
 ) {
+
+    val textColor = if (hint == Hint.NONE) Color.Black else Color.White
+    val bgColor = when(hint) {
+        Hint.CORRECT -> Green
+        Hint.CORRECT_ANOTHER -> Blue
+        Hint.INCORRECT -> Gray
+        Hint.WRONG_PLACEMENT -> Orange
+        else -> Color.White
+    }
 
     OutlinedCard(
         modifier = Modifier.padding(2.dp).testTag("LetterComponentCard"),
         colors = CardColors(
-            containerColor = Color.White,
-            contentColor = Color.Black,
+            containerColor = bgColor,
+            contentColor = textColor,
             disabledContentColor = Color.Black,
             disabledContainerColor = Color.White
         )
@@ -61,11 +77,11 @@ fun PreviewLetterComponent(){
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            LetterComponent(letter = "A")
-            LetterComponent(letter = "B")
-            LetterComponent(letter = "C")
-            LetterComponent(letter = "D")
-            LetterComponent(letter = "E")
+            LetterComponent(letter = "A", hint = Hint.NONE)
+            LetterComponent(letter = "B", hint = Hint.CORRECT)
+            LetterComponent(letter = "C", hint = Hint.INCORRECT)
+            LetterComponent(letter = "D", hint = Hint.CORRECT_ANOTHER)
+            LetterComponent(letter = "E", hint = Hint.WRONG_PLACEMENT)
         }
     }
 }
