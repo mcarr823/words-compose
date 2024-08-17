@@ -125,6 +125,12 @@ abstract class AbstractUiUnitTest {
         }
     }
 
+    fun onNodeWithTag(
+        tag: String
+    ): SemanticsNodeInteraction {
+        return composeTestRule.onNodeWithTag(tag)
+    }
+
     fun SemanticsNodeInteraction.assertTextColor(
         color: Color
     ): SemanticsNodeInteraction = assert(isOfColor(color))
