@@ -1,9 +1,17 @@
 package dev.mcarr.words.ui
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.colorspace.ColorSpaces
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.semantics.SemanticsProperties
+import androidx.compose.ui.semantics.getOrNull
+import androidx.compose.ui.test.SemanticsMatcher
 import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
+import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
+import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
@@ -11,6 +19,7 @@ import androidx.compose.ui.test.onNodeWithText
 import org.junit.Rule
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import androidx.compose.ui.text.TextLayoutResult as TextLayoutResult1
 
 /**
  * Abstract class for any UI testing classes to inherit from.
@@ -116,4 +125,21 @@ abstract class AbstractUiUnitTest {
         }
     }
 
+    fun SemanticsNodeInteraction.assertTextColor(
+        color: Color
+    ): SemanticsNodeInteraction = assert(isOfColor(color))
+
+    private fun isOfColor(color: Color): SemanticsMatcher = SemanticsMatcher(
+        "${SemanticsProperties.Text.name} is of color '$color'"
+    ) {
+        val textLayoutResults = mutableListOf<TextLayoutResult1>()
+        it.config.getOrNull(SemanticsActions.GetTextLayoutResult)
+            ?.action
+            ?.invoke(textLayoutResults)
+        return@SemanticsMatcher if (textLayoutResults.isEmpty()) {
+            false
+        } else {
+            textLayoutResults.first().layoutInput.style.color == color
+        }
+    }
 }
