@@ -27,6 +27,7 @@ class LetterComponentTest : AbstractUiUnitTest() {
         onNodeWithTag("LetterComponentCard")
             .assertExists()
             .assertIsDisplayed()
+            .assertBackgroundColor(Color.White)
 
     }
 

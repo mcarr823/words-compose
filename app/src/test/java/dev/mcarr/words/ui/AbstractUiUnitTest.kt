@@ -2,7 +2,6 @@ package dev.mcarr.words.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.colorspace.ColorSpaces
 import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.SemanticsProperties
 import androidx.compose.ui.semantics.getOrNull
@@ -11,7 +10,6 @@ import androidx.compose.ui.test.SemanticsNodeInteraction
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
-import androidx.compose.ui.test.captureToImage
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
@@ -148,4 +146,22 @@ abstract class AbstractUiUnitTest {
             textLayoutResults.first().layoutInput.style.color == color
         }
     }
+
+    /**
+     * FIXME
+     * This test is currently broken since Robolectric can't run captureToImage.
+     * @see <a href="https://github.com/robolectric/robolectric/issues/8071">the github issue</a>
+     * */
+    fun SemanticsNodeInteraction.assertBackgroundColor(color: Color): SemanticsNodeInteraction {
+        return this
+        /*
+        val array = IntArray(20)
+        captureToImage()
+            .readPixels(array, startY = 10, startX = 10, width = 5, height = 4)
+        val allMatch = array.all { it == color.convert(ColorSpaces.Srgb).hashCode() }
+        assert(allMatch)
+        return this
+        */
+    }
+
 }
