@@ -2,10 +2,12 @@ package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import dev.mcarr.words.enums.WordSource
 import dev.mcarr.words.ui.components.Heading
 import dev.mcarr.words.ui.components.NavCard
 import dev.mcarr.words.ui.components.PaddedText
+import dev.mcarr.words.ui.components.PreviewComponent
 
 /**
  * Word list download selection screen.
@@ -39,4 +41,14 @@ fun DownloadSourceScreen(
 
     }
 
+}
+
+@Preview
+@Composable
+fun PreviewDownloadSourceScreen(){
+    PreviewComponent {
+        DownloadSourceScreen(
+            done = {}
+        )
+    }
 }
