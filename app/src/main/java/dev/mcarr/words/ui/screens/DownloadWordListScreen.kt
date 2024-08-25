@@ -1,17 +1,24 @@
 package dev.mcarr.words.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import dev.mcarr.words.api.http.HerokuHttpClient
 import dev.mcarr.words.data.entities.Word
 import dev.mcarr.words.data.repos.WordRepository
@@ -61,26 +68,35 @@ fun DownloadWordListScreen(
         model.downloadAttempt
     }
 
-    if (success){
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        if (success) {
 
-        Column {
             Heading(text = "Success")
-            PaddedText(text = "Word list has been downloaded successfully.")
+            Spacer(modifier = Modifier.height(16.dp))
+            PaddedText(text = "Word list has been downloaded.")
             PaddedText(text = "You are now ready to play.")
+            Spacer(modifier = Modifier.height(16.dp))
             ColoredTextButton(
                 backgroundColor = Blue,
                 textColor = Color.White,
                 text = "Play Now!",
                 onClick = playNow
             )
-        }
 
-    }else if (error) {
+        } else if (error) {
 
-        Column {
             Heading(text = "Error")
-            PaddedText(text = "Failed to download word list")
-            Row {
+            Spacer(modifier = Modifier.height(16.dp))
+            PaddedText(text = "Failed to download word list.")
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth()
+            ) {
                 ColoredTextButton(
                     backgroundColor = Blue,
                     textColor = Color.White,
@@ -97,18 +113,16 @@ fun DownloadWordListScreen(
                     onClick = goBack
                 )
             }
-        }
 
-        // TODO try again button and Back button
+        } else {
 
-    }else{
-
-        Column {
             Heading(text = "Downloading")
-            CircularProgressIndicator()
+            Spacer(modifier = Modifier.height(16.dp))
             PaddedText(text = "Downloading word list...")
-        }
+            Spacer(modifier = Modifier.height(16.dp))
+            CircularProgressIndicator()
 
+        }
     }
 
     LaunchedEffect(key1 = downloadAttempt) {
@@ -117,9 +131,15 @@ fun DownloadWordListScreen(
 
             val repo = WordRepository.getInstance(context)
             val client = HerokuHttpClient()
-            client.downloadAllWords()
+            val words = client.downloadAllWords()
                 .map { Word(it) }
-                .let { repo.insert(it) }
+
+            if (words.isNotEmpty()){
+                repo.insert(words)
+                success = true
+            }else{
+                error = true
+            }
 
         }else{
             error = true
