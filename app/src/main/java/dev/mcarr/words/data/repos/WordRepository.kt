@@ -1,6 +1,8 @@
 package dev.mcarr.words.data.repos
 
+import android.content.Context
 import dev.mcarr.words.data.daos.WordDao
+import dev.mcarr.words.data.databases.AppDatabase
 import dev.mcarr.words.data.entities.Word
 
 /**
@@ -52,6 +54,15 @@ class WordRepository private constructor(
         fun getInstance(dao: WordDao) =
             instance ?: synchronized(this) {
                 instance ?: WordRepository(dao).also { instance = it }
+            }
+
+        fun getInstance(c: Context) =
+            instance ?: synchronized(this) {
+                instance ?: synchronized(this) {
+                    val db = AppDatabase.instantiate(c)
+                    val dao = db.wordDao()
+                    WordRepository(dao).also { instance = it }
+                }
             }
 
     }

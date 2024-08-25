@@ -9,6 +9,7 @@ enum class WordSource(
     key: String
 ) {
 
+    UNDEFINED("UNDEFINED"),
     DATABASE("DATABASE"),
     ONLINE_HEROKU("ONLINE_HEROKU"),
     ONLINE_RANDO("ONLINE_RANDO"),
