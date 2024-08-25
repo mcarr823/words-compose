@@ -1,6 +1,9 @@
 package dev.mcarr.words.api.http
 
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Test
 
 class HerokuHttpClientTest : AbstractHttpClientTest() {
 
@@ -12,6 +15,17 @@ class HerokuHttpClientTest : AbstractHttpClientTest() {
     @Before
     fun setUp(){
         client = HerokuHttpClient()
+    }
+
+    @Test
+    fun getAllWordsTest(){
+        val c = client as HerokuHttpClient
+
+        runBlocking {
+            val strings = c.downloadAllWords()
+            assertEquals(true, strings.isNotEmpty())
+        }
+
     }
 
 }
