@@ -74,6 +74,7 @@ dependencies {
     implementation(libs.core.ktx)
     implementation(libs.ktor.core)
     implementation(libs.ktor.cio)
+    implementation(libs.androidx.navigation.compose)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
