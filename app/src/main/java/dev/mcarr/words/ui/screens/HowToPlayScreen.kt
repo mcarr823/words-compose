@@ -28,12 +28,10 @@ import dev.mcarr.words.ui.theme.Orange
  * Displays instructions on how to play the game.
  *
  * @param paddingValues Padding around the screen components
- * @param done Callback to invoke when the Done button is pressed
  * */
 @Composable
 fun HowToPlayScreen(
-    paddingValues: PaddingValues,
-    done: () -> Unit
+    paddingValues: PaddingValues
 ) {
 
     Column(
@@ -70,18 +68,6 @@ fun HowToPlayScreen(
             regularText = "Incorrect guess",
             textColor = Gray
         )
-
-        Row(
-            horizontalArrangement = Arrangement.End,
-            modifier = Modifier.fillMaxWidth().padding(16.dp)
-        ) {
-            ColoredTextButton(
-                backgroundColor = Blue,
-                textColor = Color.White,
-                text = "Done",
-                onClick = done
-            )
-        }
     }
 
 }
@@ -91,8 +77,7 @@ fun HowToPlayScreen(
 fun PreviewHowToPlayScreen(){
     PreviewComponent {
         HowToPlayScreen(
-            paddingValues = PaddingValues(0.dp),
-            done = {}
+            paddingValues = PaddingValues(0.dp)
         )
     }
 }
