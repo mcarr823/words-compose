@@ -13,7 +13,9 @@ class ImportCsvFileScreenTest : AbstractScreenTest() {
     fun test(){
 
         setContent {
-            ImportCsvFileScreen()
+            ImportCsvFileScreen(
+                processFile = {}
+            )
         }
 
         testHeading("CSV File")

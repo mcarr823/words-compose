@@ -9,7 +9,9 @@ class ImportXmlFileScreenTest : AbstractScreenTest() {
     fun test(){
 
         setContent {
-            ImportXmlFileScreen()
+            ImportXmlFileScreen(
+                processFile = {}
+            )
         }
 
         testHeading("XML File")

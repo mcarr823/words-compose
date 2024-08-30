@@ -9,7 +9,9 @@ class ImportJsonFileScreenTest : AbstractScreenTest() {
     fun test(){
 
         setContent {
-            ImportJsonFileScreen()
+            ImportJsonFileScreen(
+                processFile = {}
+            )
         }
 
         testHeading("JSON File")
