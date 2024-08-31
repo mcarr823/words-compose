@@ -32,3 +32,7 @@ val Typography = Typography(
     )
     */
 )
+
+val LetterComponentTextStyle = Typography.displayLarge.copy(
+    fontFamily = FontFamily.Monospace
+)

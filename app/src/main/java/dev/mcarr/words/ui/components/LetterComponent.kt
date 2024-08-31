@@ -20,6 +20,7 @@ import dev.mcarr.words.ui.theme.Blue
 import dev.mcarr.words.ui.theme.Orange
 import dev.mcarr.words.ui.theme.Green
 import dev.mcarr.words.ui.theme.Gray
+import dev.mcarr.words.ui.theme.LetterComponentTextStyle
 
 /**
  * Displays a single letter of a guessed word.
@@ -58,12 +59,11 @@ fun LetterComponent(
     ) {
         Text(
             text = letter,
-            style = Typography.displayLarge,
+            style = LetterComponentTextStyle,
             modifier = Modifier.padding(
                 vertical = 8.dp,
                 horizontal = 16.dp
-            ).testTag("LetterComponentText"),
-            fontFamily = FontFamily.Monospace
+            ).testTag("LetterComponentText")
         )
     }
 
