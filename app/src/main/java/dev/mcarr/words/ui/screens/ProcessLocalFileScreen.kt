@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toFile
 import dev.mcarr.words.data.imports.CsvFile
@@ -25,6 +26,7 @@ import dev.mcarr.words.data.repos.WordRepository
 import dev.mcarr.words.ui.components.ColoredTextButton
 import dev.mcarr.words.ui.components.Heading
 import dev.mcarr.words.ui.components.PaddedText
+import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.theme.Blue
 import dev.mcarr.words.viewmodels.ProcessLocalFileScreenViewModel
 
@@ -125,4 +127,18 @@ fun ProcessLocalFileScreen(
         }
     }
 
+}
+
+@Preview
+@Composable
+fun PreviewProcessLocalFileScreen(){
+    PreviewComponent {
+        val model = ProcessLocalFileScreenViewModel()
+        ProcessLocalFileScreen(
+            paddingValues = PaddingValues(0.dp),
+            model = model,
+            playNow = {},
+            goBack = {}
+        )
+    }
 }
