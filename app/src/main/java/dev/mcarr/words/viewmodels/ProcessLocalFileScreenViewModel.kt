@@ -28,4 +28,14 @@ class ProcessLocalFileScreenViewModel : ViewModel() {
      * */
     var error = mutableStateOf(false)
 
+    /**
+     * Sets the URI and resets all other variables
+     * back to their default value.
+     * */
+    fun reset(newUri: Uri){
+        this.uri = newUri
+        success.value = false
+        error.value = false
+    }
+
 }
