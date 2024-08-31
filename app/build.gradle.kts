@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp") version "1.9.0-1.0.13"
+    alias(libs.plugins.compose.compiler)
+    id("com.google.devtools.ksp") version "2.0.0-1.0.21"
 }
 
 android {
@@ -40,9 +41,6 @@ android {
     buildFeatures {
         compose = true
     }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
@@ -53,11 +51,11 @@ android {
             isIncludeAndroidResources = true
         }
     }
-}
 
-ksp {
-    arg("schemaDirectory", "$projectDir/schemas")
-    arg("generateKotlin", "true")
+    ksp {
+        arg("schemaDirectory", "$projectDir/schemas")
+        arg("generateKotlin", "true")
+    }
 }
 
 dependencies {
