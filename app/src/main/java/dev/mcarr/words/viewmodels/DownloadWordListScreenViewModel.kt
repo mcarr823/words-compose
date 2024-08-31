@@ -6,6 +6,7 @@ import dev.mcarr.words.enums.WordSource
 
 /**
  * Viewmodel used by the DownloadWordListScreen component.
+ *
  * @see dev.mcarr.words.ui.screens.DownloadWordListScreen
  * */
 class DownloadWordListScreenViewModel : ViewModel() {

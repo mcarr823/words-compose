@@ -18,6 +18,7 @@ import dev.mcarr.words.viewmodels.GameScreenViewModel
 /**
  * Screen on which the Words game is actually played.
  *
+ * @param paddingValues Padding around the screen components
  * @param model Viewmodel containing the settings and
  * current guesses.
  *

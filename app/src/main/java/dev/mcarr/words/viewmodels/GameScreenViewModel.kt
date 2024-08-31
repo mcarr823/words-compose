@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 
 /**
  * Viewmodel used by the GameScreen component.
+ *
+ * @see dev.mcarr.words.ui.screens.GameScreen
  * */
 class GameScreenViewModel : ViewModel() {
 

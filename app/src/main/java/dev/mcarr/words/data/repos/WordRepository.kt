@@ -51,6 +51,20 @@ class WordRepository private constructor(
 
         @Volatile private var instance: WordRepository? = null
 
+        /**
+         * Builds and returns an instance of the repository.
+         *
+         * Does NOT use the cached instance.
+         * This is because the overhead of opening the database
+         * is irrelevant (since the function is already being
+         * passed a dao).
+         *
+         * So we might as well return a fresh instance of
+         * the repository, just in case the cached instance
+         * and the dao belong to different databases.
+         * eg. in the case of in-memory databases, such as
+         * during a unit test.
+         * */
         fun getInstance(dao: WordDao) =
             synchronized(this) {
                 WordRepository(dao).also { instance = it }
