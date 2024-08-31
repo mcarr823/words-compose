@@ -1,5 +1,7 @@
 package dev.mcarr.words.ui.screens
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.dp
 import dev.mcarr.words.ui.screens.ImportLocalFileScreen
 import org.junit.Test
 
@@ -15,6 +17,7 @@ class ImportLocalFileScreenTest : AbstractScreenTest() {
 
         setContent {
             ImportLocalFileScreen(
+                paddingValues = PaddingValues(0.dp),
                 goToTxtFileImportScreen = { txtButtonCount++ },
                 goToCsvFileImportScreen = { csvButtonCount++ },
                 goToJsonFileImportScreen = { jsonButtonCount++ },

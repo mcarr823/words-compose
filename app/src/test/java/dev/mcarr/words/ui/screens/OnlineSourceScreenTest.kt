@@ -1,7 +1,9 @@
 package dev.mcarr.words.ui.screens
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.unit.dp
 import dev.mcarr.words.enums.WordSource
 import dev.mcarr.words.ui.screens.OnlineSourceScreen
 import org.junit.Assert.assertEquals
@@ -16,7 +18,9 @@ class OnlineSourceScreenTest : AbstractScreenTest() {
         var source: WordSource? = null
 
         setContent {
-            OnlineSourceScreen {
+            OnlineSourceScreen(
+                paddingValues = PaddingValues(0.dp)
+            ) {
                 source = it
             }
         }

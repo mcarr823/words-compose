@@ -11,16 +11,12 @@ class HowToPlayScreenTest : AbstractScreenTest() {
     fun test(){
 
         val padding = PaddingValues(0.dp)
-        var clicked = 0
 
         setContent {
-            HowToPlayScreen(paddingValues = padding) {
-                clicked++
-            }
+            HowToPlayScreen(paddingValues = padding)
         }
 
         testHeading("How To Play")
-        testButton("Done", false){ clicked }
 
     }
 }

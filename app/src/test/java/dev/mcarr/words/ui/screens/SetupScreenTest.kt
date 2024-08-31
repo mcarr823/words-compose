@@ -1,5 +1,7 @@
 package dev.mcarr.words.ui.screens
 
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.dp
 import dev.mcarr.words.ui.screens.SetupScreen
 import org.junit.Test
 
@@ -14,6 +16,7 @@ class SetupScreenTest : AbstractScreenTest() {
 
         setContent {
             SetupScreen(
+                paddingValues = PaddingValues(0.dp),
                 goToLocalFileScreen = { localFileCount++ },
                 goToDownloadSourceScreen = { downloadSourceCount++ },
                 goToOnlineSourceScreen = { onlineSourceCount++ }
