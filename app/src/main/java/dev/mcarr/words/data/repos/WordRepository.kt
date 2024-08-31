@@ -52,8 +52,8 @@ class WordRepository private constructor(
         @Volatile private var instance: WordRepository? = null
 
         fun getInstance(dao: WordDao) =
-            instance ?: synchronized(this) {
-                instance ?: WordRepository(dao).also { instance = it }
+            synchronized(this) {
+                WordRepository(dao).also { instance = it }
             }
 
         fun getInstance(c: Context) =
