@@ -1,8 +1,12 @@
 package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import dev.mcarr.words.ui.components.Heading
 import dev.mcarr.words.ui.components.NavCard
 import dev.mcarr.words.ui.components.PaddedText
@@ -15,18 +19,22 @@ import dev.mcarr.words.ui.components.PreviewComponent
  * or the Remote Source selection screen, depending on how
  * the user wants to retrieve words when playing the game.
  *
+ * @param paddingValues Padding around the screen components
  * @param goToLocalFileScreen Callback to invoke when the Upload button is clicked
  * @param goToDownloadSourceScreen Callback to invoke when the Download button is clicked
  * @param goToOnlineSourceScreen Callback to invoke when Online Source button is clicked
  * */
 @Composable
 fun SetupScreen(
+    paddingValues: PaddingValues,
     goToLocalFileScreen: () -> Unit,
     goToDownloadSourceScreen: () -> Unit,
     goToOnlineSourceScreen: () -> Unit
 ) {
 
-    Column {
+    Column(
+        modifier = Modifier.padding(paddingValues)
+    ) {
         Heading(text = "Setup")
 
         PaddedText(text = "This game needs to be supplied with a list of words in order to be played.")
@@ -47,6 +55,7 @@ fun SetupScreen(
 fun PreviewSetupScreen(){
     PreviewComponent {
         SetupScreen(
+            paddingValues = PaddingValues(0.dp),
             goToLocalFileScreen = {},
             goToDownloadSourceScreen = {},
             goToOnlineSourceScreen = {}

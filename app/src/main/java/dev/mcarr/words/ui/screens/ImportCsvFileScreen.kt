@@ -3,6 +3,7 @@ package dev.mcarr.words.ui.screens
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,13 +24,18 @@ import dev.mcarr.words.ui.theme.Blue
  *
  * Describes the expected format of a CSV file for this app
  * to import, and provides an Import button to select the file.
+ *
+ * @param paddingValues Padding around the screen components
  * */
 @Composable
 fun ImportCsvFileScreen(
+    paddingValues: PaddingValues,
     processFile: (Uri) -> Unit
 ) {
 
-    Column {
+    Column(
+        modifier = Modifier.padding(paddingValues)
+    ) {
         Heading(text = "CSV File")
 
         PaddedText(text = "CSV files are expected to be in the following format:")
@@ -59,6 +65,7 @@ fun ImportCsvFileScreen(
 fun PreviewImportCsvFileScreen(){
     PreviewComponent {
         ImportCsvFileScreen(
+            paddingValues = PaddingValues(0.dp),
             processFile = {}
         )
     }

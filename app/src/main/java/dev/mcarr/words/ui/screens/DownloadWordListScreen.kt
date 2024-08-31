@@ -2,6 +2,7 @@ package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,6 +40,7 @@ import dev.mcarr.words.viewmodels.DownloadWordListScreenViewModel
  * It then shows either a success or error message, depending
  * on the result.
  *
+ * @param paddingValues Padding around the screen components
  * @param model Viewmodel containing the screen variables
  * @param playNow Callback to invoke when the user taps on
  * the Play button after a successful download.
@@ -49,6 +51,7 @@ import dev.mcarr.words.viewmodels.DownloadWordListScreenViewModel
  * */
 @Composable
 fun DownloadWordListScreen(
+    paddingValues: PaddingValues,
     model: DownloadWordListScreenViewModel,
     playNow: () -> Unit,
     goBack: () -> Unit
@@ -69,6 +72,7 @@ fun DownloadWordListScreen(
     }
 
     Column(
+        modifier = Modifier.padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (success) {
@@ -158,6 +162,7 @@ fun PreviewDownloadWordListScreenDownloading(){
 
     PreviewComponent {
         DownloadWordListScreen(
+            paddingValues = PaddingValues(0.dp),
             model = model,
             playNow = {},
             goBack = {}
@@ -174,6 +179,7 @@ fun PreviewDownloadWordListScreenError(){
 
     PreviewComponent {
         DownloadWordListScreen(
+            paddingValues = PaddingValues(0.dp),
             model = model,
             playNow = {},
             goBack = {}
@@ -190,6 +196,7 @@ fun PreviewDownloadWordListScreenSuccess(){
 
     PreviewComponent {
         DownloadWordListScreen(
+            paddingValues = PaddingValues(0.dp),
             model = model,
             playNow = {},
             goBack = {}

@@ -1,8 +1,10 @@
 package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -32,6 +34,7 @@ import dev.mcarr.words.viewmodels.ProcessLocalFileScreenViewModel
  * Displays text and a progress indicator while attempting
  * to parse a local file and import it into the database.
  *
+ * @param paddingValues Padding around the screen components
  * @param model Viewmodel containing the current state
  * of the screen.
  * @param playNow Callback to invoke when the user taps
@@ -43,6 +46,7 @@ import dev.mcarr.words.viewmodels.ProcessLocalFileScreenViewModel
  * */
 @Composable
 fun ProcessLocalFileScreen(
+    paddingValues: PaddingValues,
     model: ProcessLocalFileScreenViewModel,
     playNow: () -> Unit,
     goBack: () -> Unit
@@ -59,6 +63,7 @@ fun ProcessLocalFileScreen(
     }
 
     Column(
+        modifier = Modifier.padding(paddingValues),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (success) {

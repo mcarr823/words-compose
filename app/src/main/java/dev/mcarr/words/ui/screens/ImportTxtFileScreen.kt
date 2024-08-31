@@ -3,6 +3,7 @@ package dev.mcarr.words.ui.screens
 import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -23,13 +24,18 @@ import dev.mcarr.words.ui.theme.Blue
  *
  * Describes the expected format of a TXT file for this app
  * to import, and provides an Import button to select the file.
+ *
+ * @param paddingValues Padding around the screen components
  * */
 @Composable
 fun ImportTxtFileScreen(
+    paddingValues: PaddingValues,
     processFile: (Uri) -> Unit
 ) {
 
-    Column {
+    Column(
+        modifier = Modifier.padding(paddingValues)
+    ) {
         Heading(text = "TXT File")
 
         PaddedText(text = "TXT files are expected to be in the following format:")
@@ -58,6 +64,7 @@ fun ImportTxtFileScreen(
 fun PreviewImportTxtFileScreen(){
     PreviewComponent {
         ImportTxtFileScreen(
+            paddingValues = PaddingValues(0.dp),
             processFile = {}
         )
     }

@@ -1,8 +1,12 @@
 package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import dev.mcarr.words.enums.WordSource
 import dev.mcarr.words.ui.components.Heading
 import dev.mcarr.words.ui.components.NavCard
@@ -17,14 +21,18 @@ import dev.mcarr.words.ui.components.PreviewComponent
  *
  * A word list is then downloaded from the selected endpoint.
  *
+ * @param paddingValues Padding around the screen components
  * @param done Callback to invoke when an endpoint is selected
  * */
 @Composable
 fun DownloadSourceScreen(
+    paddingValues: PaddingValues,
     done: (choice: WordSource) -> Unit
 ) {
 
-    Column {
+    Column(
+        modifier = Modifier.padding(paddingValues)
+    ) {
         Heading(text = "Download Word List")
 
         PaddedText(text = "Words can download a word list from an online API, then cache those results for later.")
@@ -48,6 +56,7 @@ fun DownloadSourceScreen(
 fun PreviewDownloadSourceScreen(){
     PreviewComponent {
         DownloadSourceScreen(
+            paddingValues = PaddingValues(0.dp),
             done = {}
         )
     }
