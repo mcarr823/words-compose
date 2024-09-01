@@ -37,6 +37,6 @@ val LetterComponentTextStyle = Typography.displayLarge.copy(
     fontFamily = FontFamily.Monospace
 )
 
-val KeyComponentTextStyle = Typography.bodyLarge.copy(
+val KeyComponentTextStyle = Typography.bodyMedium.copy(
     fontFamily = FontFamily.Monospace
 )
