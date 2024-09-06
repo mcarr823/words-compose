@@ -74,7 +74,7 @@ abstract class AbstractUiUnitTest {
         text: String,
         callback: SemanticsNodeInteractionCollection.() -> Unit
     ){
-        composeTestRule.onAllNodesWithText(text).run {
+        composeTestRule.onAllNodesWithText(text, useUnmergedTree = true).run {
             callback()
         }
     }
@@ -118,7 +118,7 @@ abstract class AbstractUiUnitTest {
         tag: String,
         callback: SemanticsNodeInteraction.() -> Unit
     ){
-        composeTestRule.onNodeWithTag(tag).run {
+        composeTestRule.onNodeWithTag(tag, useUnmergedTree = true).run {
             callback()
         }
     }
@@ -126,7 +126,7 @@ abstract class AbstractUiUnitTest {
     fun onNodeWithTag(
         tag: String
     ): SemanticsNodeInteraction {
-        return composeTestRule.onNodeWithTag(tag)
+        return composeTestRule.onNodeWithTag(tag, useUnmergedTree = true)
     }
 
     fun SemanticsNodeInteraction.assertTextColor(
