@@ -19,6 +19,9 @@ class HerokuHttpClientTest : AbstractHttpClientTest() {
 
     @Test
     fun getAllWordsTest(){
+
+        if (!enableHttpTests) return
+
         val c = client as HerokuHttpClient
 
         runBlocking {

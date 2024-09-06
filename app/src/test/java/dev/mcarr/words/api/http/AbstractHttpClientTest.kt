@@ -19,8 +19,15 @@ abstract class AbstractHttpClientTest {
     abstract val minLength: Int
     abstract val maxLength: Int
 
+    // TODO turn this into an environment or gradle arg
+    // Don't run HTTP tests by default, so we don't spam
+    // the remote endpoints.
+    val enableHttpTests = false
+
     @Test
     fun getRandomWordTest(){
+
+        if (!enableHttpTests) return
 
         runBlocking {
             val word = client.getRandomWord()
@@ -31,6 +38,8 @@ abstract class AbstractHttpClientTest {
 
     @Test
     fun getRandomWordLengthTest(){
+
+        if (!enableHttpTests) return
 
         runBlocking {
 
