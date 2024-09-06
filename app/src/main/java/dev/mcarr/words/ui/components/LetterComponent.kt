@@ -14,6 +14,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.enums.Hint
 import dev.mcarr.words.ui.theme.Typography
 import dev.mcarr.words.ui.theme.Blue
@@ -35,18 +36,11 @@ import dev.mcarr.words.ui.theme.LetterComponentTextStyle
  * */
 @Composable
 fun LetterComponent(
-    letter: String,
-    hint: Hint
+    hintedLetter: HintedLetter
 ) {
 
-    val textColor = if (hint == Hint.NONE) Color.Black else Color.White
-    val bgColor = when(hint) {
-        Hint.CORRECT -> Green
-        Hint.CORRECT_ANOTHER -> Blue
-        Hint.INCORRECT -> Gray
-        Hint.WRONG_PLACEMENT -> Orange
-        else -> Color.White
-    }
+    val textColor = hintedLetter.getTextColor()
+    val bgColor = hintedLetter.getBgColor()
 
     OutlinedCard(
         modifier = Modifier.padding(2.dp).testTag("LetterComponentCard"),
@@ -58,7 +52,7 @@ fun LetterComponent(
         )
     ) {
         Text(
-            text = letter,
+            text = hintedLetter.letter,
             style = LetterComponentTextStyle,
             modifier = Modifier.padding(
                 vertical = 8.dp,
@@ -77,11 +71,11 @@ fun PreviewLetterComponent(){
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            LetterComponent(letter = "A", hint = Hint.NONE)
-            LetterComponent(letter = "B", hint = Hint.CORRECT)
-            LetterComponent(letter = "C", hint = Hint.INCORRECT)
-            LetterComponent(letter = "D", hint = Hint.CORRECT_ANOTHER)
-            LetterComponent(letter = "E", hint = Hint.WRONG_PLACEMENT)
+            LetterComponent(HintedLetter("A", Hint.NONE))
+            LetterComponent(HintedLetter("B", Hint.CORRECT))
+            LetterComponent(HintedLetter("C", Hint.INCORRECT))
+            LetterComponent(HintedLetter("D", Hint.CORRECT_ANOTHER))
+            LetterComponent(HintedLetter("E", Hint.WRONG_PLACEMENT))
         }
     }
 }

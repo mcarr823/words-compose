@@ -3,6 +3,7 @@ package dev.mcarr.words.ui.components
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
+import dev.mcarr.words.classes.HintedString
 import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Test
 
@@ -11,8 +12,10 @@ class WordComponentTest : AbstractUiUnitTest() {
     @Test
     fun testWordComponent(){
 
+        val hintedString = HintedString(displayWord = "WORD", targetWord = "WORDS")
+
         setContent {
-            WordComponent(word = "WORD", targetLength = 5)
+            WordComponent(hintedString)
         }
 
         onNodeWithText("W"){
@@ -50,8 +53,10 @@ class WordComponentTest : AbstractUiUnitTest() {
     @Test
     fun testWordComponentDuplicateLetters(){
 
+        val hintedString = HintedString(displayWord = "TEST", targetWord = "WORDS")
+
         setContent {
-            WordComponent(word = "TEST", targetLength = 5)
+            WordComponent(hintedString)
         }
 
         onAllNodesWithText("T", 2){

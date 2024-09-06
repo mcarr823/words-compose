@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dev.mcarr.words.classes.HintedString
 import dev.mcarr.words.enums.Hint
 
 /**
@@ -21,12 +22,11 @@ import dev.mcarr.words.enums.Hint
  * */
 @Composable
 fun WordComponent(
-    word: String,
-    targetLength: Int,
+    word: HintedString
 ) {
 
     val letters = remember {
-        word.padEnd(targetLength, ' ').chunked(1)
+        word.asList()
     }
 
     Row(
@@ -34,10 +34,18 @@ fun WordComponent(
         modifier = Modifier.fillMaxWidth()
     ) {
         letters.forEach {
-            LetterComponent(letter = it, hint = Hint.NONE)
+            LetterComponent(it)
         }
     }
 
+}
+
+@Composable
+fun WordComponent(
+    word: String
+) {
+    val hintedString = HintedString(word, "")
+    WordComponent(hintedString)
 }
 
 @Preview
@@ -46,12 +54,13 @@ fun PreviewWordComponent(){
     val targetLength = 5
     PreviewComponent {
         Column {
-            WordComponent(word = "ABCDE", targetLength = targetLength)
-            WordComponent(word = "FGHIJ", targetLength = targetLength)
-            WordComponent(word = "KLMNO", targetLength = targetLength)
-            WordComponent(word = "PQRST", targetLength = targetLength)
-            WordComponent(word = "UVWXY", targetLength = targetLength)
-            WordComponent(word = "Z", targetLength = targetLength)
+            HintedString(displayWord = "ABCDE", targetWord = "WORDS")
+            WordComponent(HintedString(displayWord = "ABCDE", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "FGHIJ", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "KLMNO", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "PQRST", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "UVWXY", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "Z    ", targetWord = "WORDS"))
         }
     }
 }

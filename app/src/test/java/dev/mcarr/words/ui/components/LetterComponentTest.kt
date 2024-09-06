@@ -5,6 +5,7 @@ import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.semantics.getOrNull
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertTextEquals
+import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.enums.Hint
 import dev.mcarr.words.ui.AbstractUiUnitTest
 import org.junit.Test
@@ -14,8 +15,10 @@ class LetterComponentTest : AbstractUiUnitTest() {
     @Test
     fun testHintNone(){
 
+        val hintedLetter = HintedLetter(letter = "A", hint = Hint.NONE)
+
         setContent {
-            LetterComponent(letter = "A", hint = Hint.NONE)
+            LetterComponent(hintedLetter)
         }
 
         onNodeWithTag("LetterComponentText")
@@ -34,8 +37,10 @@ class LetterComponentTest : AbstractUiUnitTest() {
     @Test
     fun testHintCorrect(){
 
+        val hintedLetter = HintedLetter(letter = "A", hint = Hint.CORRECT)
+
         setContent {
-            LetterComponent(letter = "A", hint = Hint.CORRECT)
+            LetterComponent(hintedLetter)
         }
 
         onNodeWithTag("LetterComponentText")
@@ -53,8 +58,10 @@ class LetterComponentTest : AbstractUiUnitTest() {
     @Test
     fun testHintIncorrect(){
 
+        val hintedLetter = HintedLetter(letter = "A", hint = Hint.INCORRECT)
+
         setContent {
-            LetterComponent(letter = "A", hint = Hint.INCORRECT)
+            LetterComponent(hintedLetter)
         }
 
         onNodeWithTag("LetterComponentText")
@@ -72,8 +79,10 @@ class LetterComponentTest : AbstractUiUnitTest() {
     @Test
     fun testHintWrongPlacement(){
 
+        val hintedLetter = HintedLetter(letter = "A", hint = Hint.WRONG_PLACEMENT)
+
         setContent {
-            LetterComponent(letter = "A", hint = Hint.WRONG_PLACEMENT)
+            LetterComponent(hintedLetter)
         }
 
         onNodeWithTag("LetterComponentText")
@@ -91,8 +100,10 @@ class LetterComponentTest : AbstractUiUnitTest() {
     @Test
     fun testHintCorrectAnother(){
 
+        val hintedLetter = HintedLetter(letter = "A", hint = Hint.CORRECT_ANOTHER)
+
         setContent {
-            LetterComponent(letter = "A", hint = Hint.CORRECT_ANOTHER)
+            LetterComponent(hintedLetter)
         }
 
         onNodeWithTag("LetterComponentText")
