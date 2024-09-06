@@ -5,12 +5,15 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.mcarr.words.classes.HintedString
 import dev.mcarr.words.ui.components.GuessTextField
+import dev.mcarr.words.ui.components.KeyboardComponent
 import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.components.WordComponent
 import dev.mcarr.words.viewmodels.GameScreenViewModel
@@ -33,7 +36,7 @@ fun GameScreen(
     // val kc = LocalSoftwareKeyboardController.current
 
     var currentGuess by remember {
-        model.currentGuess
+        mutableStateOf(model.currentGuess)
     }
 
     val guesses = remember {
@@ -44,30 +47,12 @@ fun GameScreen(
         modifier = Modifier.padding(paddingValues)
     ) {
 
-        GuessTextField(
-            guess = currentGuess,
-            setGuess = { currentGuess = it },
-            targetLength = model.targetLength
-        ) {
-            if (model.canSubmit()){
-                model.submit()
-            }else{
-                // Show error? Or just don't proceed?
-            }
-            // TODO if game over
-            // kc?.hide()
-        }
-
         guesses.forEach {
-            WordComponent(
-                word = it,
-                targetLength = model.targetLength
-            )
+            WordComponent(it)
         }
-        WordComponent(
-            word = currentGuess,
-            targetLength = model.targetLength
-        )
+        WordComponent(currentGuess)
+
+        KeyboardComponent(model)
     }
 
 }
@@ -77,11 +62,12 @@ fun GameScreen(
 fun PreviewGameScreen(){
 
     val model = GameScreenViewModel()
+    model.wordToGuess = "WORDS"
     model.addGuess("ABCDE")
     model.addGuess("FGHIJ")
     model.addGuess("KLMNO")
     model.addGuess("PQRST")
-    model.currentGuess.value = "UVWX "
+    model.currentGuess = "UVWX "
     PreviewComponent {
         GameScreen(
             paddingValues = PaddingValues(0.dp),

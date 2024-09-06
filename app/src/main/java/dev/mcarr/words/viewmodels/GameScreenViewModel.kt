@@ -2,6 +2,8 @@ package dev.mcarr.words.viewmodels
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import dev.mcarr.words.classes.HintedString
+import dev.mcarr.words.enums.Hint
 
 /**
  * Viewmodel used by the GameScreen component.
@@ -13,7 +15,7 @@ class GameScreenViewModel : ViewModel() {
     /**
      * Length of the word we're trying to guess
      * */
-    val targetLength = 5
+    var targetLength = 5
 
     /**
      * Maximum number of previous guesses to show
@@ -25,16 +27,18 @@ class GameScreenViewModel : ViewModel() {
      * The player's current guess as to what the word
      * might be
      * */
-    var currentGuess = mutableStateOf("")
+    var currentGuess = ""
+
+    var wordToGuess = ""
+    var canSubmit = false
+    var hints = HashMap<String, Hint>()
 
     /**
      * Arraylist holding the player's previous guesses.
      * Defaults to a list of `guessesToShow` blank strings.
      * Each string is padded to a length of `targetLength`.
      * */
-    val guesses = ArrayList<String>(
-        List(guessesToShow){ "" }
-    )
+    val guesses = ArrayList<HintedString>()
 
     /**
      * Adds a new guess to the list.
@@ -42,11 +46,15 @@ class GameScreenViewModel : ViewModel() {
      * then it removes the first item in the list before adding
      * a new one.
      * */
-    fun addGuess(word: String){
+    fun addGuess(word: HintedString){
         if (guesses.size == guessesToShow){
             guesses.removeAt(0)
         }
         guesses.add(word)
+    }
+    fun addGuess(word: String){
+        val hintedString = HintedString(word, wordToGuess)
+        addGuess(hintedString)
     }
 
     /**
@@ -56,7 +64,7 @@ class GameScreenViewModel : ViewModel() {
      * @return True if the current guess is the correct length
      * */
     fun canSubmit(): Boolean {
-        return currentGuess.value.length == targetLength
+        return currentGuess.length == targetLength
     }
 
     /**
@@ -64,8 +72,42 @@ class GameScreenViewModel : ViewModel() {
      * clear it afterwards.
      * */
     fun submit(){
-        addGuess(currentGuess.value)
-        currentGuess.value = ""
+        addGuess(currentGuess)
+        currentGuess = ""
+        canSubmit = false
+        // TODO reassess hints whenever a submit occurs
+    }
+
+    fun pressKey(letter: String){
+
+        if (currentGuess.length == targetLength){
+            return
+        }
+
+        currentGuess += letter
+
+        if (currentGuess.length == targetLength){
+            canSubmit = true
+        }
+    }
+
+    fun backspace(){
+        val len = currentGuess.length
+        if (len > 0) currentGuess = currentGuess.take(len - 1)
+        canSubmit = false
+    }
+
+    fun start(word: String){
+        wordToGuess = word
+        guesses.clear()
+        guesses.addAll(List(guessesToShow){ HintedString("", wordToGuess) })
+        currentGuess = ""
+        canSubmit = false
+        targetLength = word.length
+    }
+
+    fun getHint(letter: String): Hint {
+        return hints.get(letter) ?: Hint.NONE
     }
 
 }
