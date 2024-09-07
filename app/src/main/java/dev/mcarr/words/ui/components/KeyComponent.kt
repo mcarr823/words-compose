@@ -101,7 +101,7 @@ fun KeyComponent(
     OutlinedIconButton(
         modifier = Modifier
             .width(width)
-            .testTag("KeyComponentCard"),
+            .testTag("KeyComponentButton"),
         colors = IconButtonColors(
             containerColor = bgColor,
             contentColor = textColor,
@@ -116,7 +116,7 @@ fun KeyComponent(
             "",
             //style = KeyComponentTextStyle,
             modifier = Modifier
-                .testTag("KeyComponentText")
+                .testTag("KeyComponentIcon")
         )
     }
 
