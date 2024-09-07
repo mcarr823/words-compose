@@ -23,11 +23,12 @@ import dev.mcarr.words.enums.Hint
 @Composable
 fun WordComponent(
     word: HintedString,
+    disableHints: Boolean = false,
     modifier: Modifier = Modifier
 ) {
 
     val letters = remember {
-        word.asList()
+        word.asList(disableHints)
     }
 
     Row(
@@ -44,10 +45,11 @@ fun WordComponent(
 @Composable
 fun WordComponent(
     word: String,
+    disableHints: Boolean = false,
     modifier: Modifier = Modifier
 ) {
     val hintedString = HintedString(word, "")
-    WordComponent(hintedString, modifier)
+    WordComponent(hintedString, disableHints, modifier)
 }
 
 @Preview
