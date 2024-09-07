@@ -32,7 +32,6 @@ fun KeyboardComponent(
     ) {
 
         val width = (this.maxWidth / 12)
-        val hint = Hint.NONE
 
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -42,6 +41,7 @@ fun KeyboardComponent(
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
             ) {
                 row1.forEach { letter ->
+                    val hint = model.getHint(letter)
                     KeyComponent(letter, hint, width, model::pressKey)
                 }
                 KeyComponent(icon = Icons.AutoMirrored.Default.ArrowBack, width = width, hint = Hint.NONE, onClick = model::backspace)
@@ -51,6 +51,7 @@ fun KeyboardComponent(
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
             ) {
                 row2.forEach { letter ->
+                    val hint = model.getHint(letter)
                     KeyComponent(letter, hint, width, model::pressKey)
                 }
                 KeyComponent(icon = Icons.Default.Done, width = width, hint = Hint.NONE, onClick = model::submit)
@@ -60,6 +61,7 @@ fun KeyboardComponent(
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
             ) {
                 row3.forEach { letter ->
+                    val hint = model.getHint(letter)
                     KeyComponent(letter, hint, width, model::pressKey)
                 }
             }
@@ -71,7 +73,13 @@ fun KeyboardComponent(
 @Preview
 @Composable
 fun PreviewKeyboardComponent(){
+
     val model = GuessViewModel()
+    model.hints["Q"] = Hint.CORRECT
+    model.hints["W"] = Hint.CORRECT_ANOTHER
+    model.hints["E"] = Hint.WRONG_PLACEMENT
+    model.hints["R"] = Hint.INCORRECT
+
     PreviewComponent {
         KeyboardComponent(
             model = model
