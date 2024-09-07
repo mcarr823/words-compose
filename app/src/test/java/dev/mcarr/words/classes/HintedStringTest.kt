@@ -238,4 +238,40 @@ class HintedStringTest {
 
     }
 
+    /**
+     * Check if the disableHints flag is working.
+     *
+     * disableHints=true is used to disable hints
+     * for a word component when it's used to display
+     * the current (unsubmitted) guess.
+     *
+     * So we need to make sure that, when that flag
+     * is set, no hints are displayed.
+     * */
+    @Test
+    fun testHintedStringDisableHinting(){
+
+        val displayWord = "TATTY"
+        val targetWord = "TESTY"
+        val l = HintedString(displayWord, targetWord)
+
+        val lettersAndHints = l.asList(disableHints = true)
+
+        val expectedLetters = displayWord.chunked(1)
+        val expectedHints = listOf(
+            Hint.NONE,
+            Hint.NONE,
+            Hint.NONE,
+            Hint.NONE,
+            Hint.NONE
+        )
+        expectedLetters.forEachIndexed { index, letter ->
+            val hint = expectedHints[index]
+            val l = lettersAndHints[index]
+            assertEquals(letter, l.letter)
+            assertEquals(hint, l.hint)
+        }
+
+    }
+
 }

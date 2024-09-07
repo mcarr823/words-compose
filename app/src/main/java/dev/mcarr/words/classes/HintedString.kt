@@ -99,8 +99,13 @@ class HintedString {
         // TODO calculate hint
     }
 
-    fun asList(): List<HintedLetter> =
-        letters.mapIndexed { i, letter -> HintedLetter(letter, hints[i]) }
+    fun asList(disableHints: Boolean = false): List<HintedLetter> =
+        letters.mapIndexed { i, letter ->
+            if (disableHints)
+                HintedLetter(letter, Hint.NONE)
+            else
+                HintedLetter(letter, hints[i])
+        }
 
     fun isTargetLength(targetLength: Int): Boolean =
         letters.filter { it.isNotBlank() }.size == targetLength
