@@ -98,6 +98,8 @@ class GuessViewModel : ViewModel() {
      * */
     fun submit(){
 
+        if (!canSubmit) return
+
         victory = guess == wordToGuess
 
         val newGuess = HintedString(guess, wordToGuess)
