@@ -2,8 +2,12 @@ package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,8 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.mcarr.words.classes.HintedString
-import dev.mcarr.words.ui.components.GuessTextField
+import androidx.constraintlayout.compose.ConstraintLayout
 import dev.mcarr.words.ui.components.KeyboardComponent
 import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.components.WordComponent
@@ -37,25 +40,57 @@ fun GameScreen(
 
     // val kc = LocalSoftwareKeyboardController.current
 
-    var currentGuess by remember {
+    val currentGuess by remember {
         mutableStateOf(guessModel.guess)
     }
 
-    val guesses = remember {
-        guessModel.previousGuesses
-        // TODO chunk with model.max number of guesses
+    val guesses by remember {
+        mutableStateOf(guessModel.previousGuesses)
     }
 
-    Column(
-        modifier = Modifier.padding(paddingValues)
-    ) {
+    ConstraintLayout(
+        modifier = Modifier.fillMaxSize().padding(paddingValues)
+    ){
 
-        guesses.forEach {
-            WordComponent(it)
+        val (refPreviousGuesses, refCurrentGuess, refKeyboard) = createRefs()
+
+        LazyColumn(
+            modifier = Modifier.fillMaxWidth()
+                .constrainAs(refPreviousGuesses){
+                    top.linkTo(parent.top)
+                    bottom.linkTo(refCurrentGuess.top)
+                }
+        ) {
+
+            items(model.guessesToShow){ i ->
+                if (i < guesses.size){
+                    WordComponent(guesses[i])
+                }else{
+                    WordComponent("")
+                }
+            }
+
         }
-        WordComponent(currentGuess)
 
-        KeyboardComponent(guessModel)
+        WordComponent(
+            currentGuess,
+            modifier = Modifier.constrainAs(refCurrentGuess){
+                bottom.linkTo(refKeyboard.top)
+            }
+        )
+
+        KeyboardComponent(
+            guessModel,
+            modifier = Modifier.constrainAs(refKeyboard){
+                bottom.linkTo(parent.bottom)
+            }
+        )
+
+    }
+
+    LaunchedEffect(Unit) {
+        // TODO hard-coded for testing. Change this
+        guessModel.start("WORDS")
     }
 
 }
