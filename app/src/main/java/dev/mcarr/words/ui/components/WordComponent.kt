@@ -22,7 +22,8 @@ import dev.mcarr.words.enums.Hint
  * */
 @Composable
 fun WordComponent(
-    word: HintedString
+    word: HintedString,
+    modifier: Modifier = Modifier
 ) {
 
     val letters = remember {
@@ -31,7 +32,7 @@ fun WordComponent(
 
     Row(
         horizontalArrangement = Arrangement.Center,
-        modifier = Modifier.fillMaxWidth()
+        modifier = modifier.fillMaxWidth()
     ) {
         letters.forEach {
             LetterComponent(it)
@@ -42,10 +43,11 @@ fun WordComponent(
 
 @Composable
 fun WordComponent(
-    word: String
+    word: String,
+    modifier: Modifier = Modifier
 ) {
     val hintedString = HintedString(word, "")
-    WordComponent(hintedString)
+    WordComponent(hintedString, modifier)
 }
 
 @Preview

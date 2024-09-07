@@ -19,7 +19,8 @@ import dev.mcarr.words.viewmodels.GuessViewModel
 
 @Composable
 fun KeyboardComponent(
-    model: GuessViewModel
+    model: GuessViewModel,
+    modifier: Modifier = Modifier
 ) {
 
     val row1 = "QWERTYUIOP".chunked(1)
@@ -27,7 +28,7 @@ fun KeyboardComponent(
     val row3 = "ZXCVBNM".chunked(1)
 
     BoxWithConstraints(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = modifier.fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
 
