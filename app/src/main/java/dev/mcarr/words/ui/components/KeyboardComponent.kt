@@ -19,18 +19,8 @@ import dev.mcarr.words.viewmodels.GuessViewModel
 
 @Composable
 fun KeyboardComponent(
-    model: GameScreenViewModel
-    // TODO viewmodel with hints
+    model: GuessViewModel
 ) {
-
-    val pressKey: (letter: String) -> Unit = model::pressKey
-    val backspace = model::backspace
-    val submit = {
-        if (model.canSubmit){
-            model.submit()
-        }
-        // TODO
-    }
 
     val row1 = "QWERTYUIOP".chunked(1)
     val row2 = "ASDFGHJKL".chunked(1)
@@ -52,25 +42,25 @@ fun KeyboardComponent(
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
             ) {
                 row1.forEach { letter ->
-                    KeyComponent(letter, hint, width, pressKey)
+                    KeyComponent(letter, hint, width, model::pressKey)
                 }
-                KeyComponent(icon = Icons.AutoMirrored.Default.ArrowBack, width = width, hint = hint, onClick = backspace)
+                KeyComponent(icon = Icons.AutoMirrored.Default.ArrowBack, width = width, hint = Hint.NONE, onClick = model::backspace)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
             ) {
                 row2.forEach { letter ->
-                    KeyComponent(letter, hint, width, pressKey)
+                    KeyComponent(letter, hint, width, model::pressKey)
                 }
-                KeyComponent(icon = Icons.Default.Done, width = width, hint = hint, onClick = submit)
+                KeyComponent(icon = Icons.Default.Done, width = width, hint = Hint.NONE, onClick = model::submit)
             }
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.CenterHorizontally),
             ) {
                 row3.forEach { letter ->
-                    KeyComponent(letter, hint, width, pressKey)
+                    KeyComponent(letter, hint, width, model::pressKey)
                 }
             }
         }
@@ -81,9 +71,10 @@ fun KeyboardComponent(
 @Preview
 @Composable
 fun PreviewKeyboardComponent(){
+    val model = GuessViewModel()
     PreviewComponent {
         KeyboardComponent(
-            model = GameScreenViewModel()
+            model = model
         )
     }
 }

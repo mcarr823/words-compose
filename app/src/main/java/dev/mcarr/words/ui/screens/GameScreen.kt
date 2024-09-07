@@ -17,6 +17,7 @@ import dev.mcarr.words.ui.components.KeyboardComponent
 import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.components.WordComponent
 import dev.mcarr.words.viewmodels.GameScreenViewModel
+import dev.mcarr.words.viewmodels.GuessViewModel
 
 /**
  * Screen on which the Words game is actually played.
@@ -30,17 +31,19 @@ import dev.mcarr.words.viewmodels.GameScreenViewModel
 @Composable
 fun GameScreen(
     paddingValues: PaddingValues,
-    model: GameScreenViewModel
+    model: GameScreenViewModel,
+    guessModel: GuessViewModel
 ) {
 
     // val kc = LocalSoftwareKeyboardController.current
 
     var currentGuess by remember {
-        mutableStateOf(model.currentGuess)
+        mutableStateOf(guessModel.guess)
     }
 
     val guesses = remember {
-        model.guesses
+        guessModel.previousGuesses
+        // TODO chunk with model.max number of guesses
     }
 
     Column(
@@ -52,7 +55,7 @@ fun GameScreen(
         }
         WordComponent(currentGuess)
 
-        KeyboardComponent(model)
+        KeyboardComponent(guessModel)
     }
 
 }
@@ -62,16 +65,21 @@ fun GameScreen(
 fun PreviewGameScreen(){
 
     val model = GameScreenViewModel()
-    model.wordToGuess = "WORDS"
-    model.addGuess("ABCDE")
-    model.addGuess("FGHIJ")
-    model.addGuess("KLMNO")
-    model.addGuess("PQRST")
-    model.currentGuess = "UVWX "
+    val guessModel = GuessViewModel()
+    guessModel.start("WORDS")
+
+    val guesses = listOf("ABCDE", "FGHIJ", "KLMNO", "PQRST")
+    guesses.forEach {
+        guessModel.guess = it
+        guessModel.submit()
+    }
+
+    guessModel.guess = "UVWX "
     PreviewComponent {
         GameScreen(
             paddingValues = PaddingValues(0.dp),
-            model = model
+            model = model,
+            guessModel = guessModel
         )
     }
 }
