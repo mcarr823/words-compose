@@ -13,6 +13,7 @@ room = "2.6.1"
 testCoreKtxVersion = "1.6.1"
 ktorVersion = "2.3.12"
 navigationCompose = "2.7.7"
+constraintlayout = "1.0.1"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +37,7 @@ core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "testCore
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktorVersion" }
 ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktorVersion" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraintlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

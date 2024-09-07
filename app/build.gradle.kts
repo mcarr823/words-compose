@@ -73,6 +73,7 @@ dependencies {
     implementation(libs.ktor.core)
     implementation(libs.ktor.cio)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.constraintlayout)
     ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)
