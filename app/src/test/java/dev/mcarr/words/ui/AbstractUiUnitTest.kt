@@ -11,6 +11,7 @@ import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.assert
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onAllNodesWithTag
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.onNodeWithText
@@ -127,6 +128,12 @@ abstract class AbstractUiUnitTest {
         tag: String
     ): SemanticsNodeInteraction {
         return composeTestRule.onNodeWithTag(tag, useUnmergedTree = true)
+    }
+
+    fun allNodesWithTag(
+        tag: String
+    ): SemanticsNodeInteractionCollection {
+        return composeTestRule.onAllNodesWithTag(tag, useUnmergedTree = true)
     }
 
     fun SemanticsNodeInteraction.assertTextColor(
