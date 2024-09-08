@@ -8,6 +8,10 @@ import androidx.compose.material3.CardColors
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.testTag
@@ -42,6 +46,13 @@ fun LetterComponent(
     val textColor = hintedLetter.getTextColor()
     val bgColor = hintedLetter.getBgColor()
 
+    var letter = remember {
+        if (hintedLetter.letter.isBlank())
+            " "
+        else
+            hintedLetter.letter
+    }
+
     OutlinedCard(
         modifier = Modifier.padding(2.dp).testTag("LetterComponentCard"),
         colors = CardColors(
@@ -52,7 +63,7 @@ fun LetterComponent(
         )
     ) {
         Text(
-            text = hintedLetter.letter,
+            text = letter,
             style = LetterComponentTextStyle,
             modifier = Modifier.padding(
                 vertical = 8.dp,
@@ -71,7 +82,7 @@ fun PreviewLetterComponent(){
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            LetterComponent(HintedLetter("A", Hint.NONE))
+            LetterComponent(HintedLetter("", Hint.NONE))
             LetterComponent(HintedLetter("B", Hint.CORRECT))
             LetterComponent(HintedLetter("C", Hint.INCORRECT))
             LetterComponent(HintedLetter("D", Hint.CORRECT_ANOTHER))
