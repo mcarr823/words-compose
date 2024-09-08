@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -29,20 +31,25 @@ fun WordComponent(
     modifier: Modifier = Modifier
 ) {
 
-    val rWord by remember {
-        mutableStateOf(word)
+    val letters = remember {
+        word.letters
     }
 
-    val letters by remember {
-        mutableStateOf(rWord.asList(disableHints))
+    val hints = remember {
+        if (disableHints){
+            val size = word.hints.size
+            List(size){ Hint.NONE }
+        }else {
+            word.hints
+        }
     }
 
     Row(
         horizontalArrangement = Arrangement.Center,
         modifier = modifier.fillMaxWidth()
     ) {
-        letters.forEach {
-            LetterComponent(it)
+        letters.forEachIndexed { index, letter ->
+            LetterComponent(letter, hints[index])
         }
     }
 
@@ -50,15 +57,22 @@ fun WordComponent(
 
 @Composable
 fun WordComponent(
-    word: String,
-    targetWord: String,
-    disableHints: Boolean = false,
+    word: List<String>,
+    targetLength: Int,
     modifier: Modifier = Modifier
 ) {
-    val hintedString = remember {
-        HintedString(word, targetWord)
+
+    LazyRow(
+        horizontalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxWidth()
+    ) {
+        items(targetLength){
+            if (it < word.size)
+                LetterComponent(word[it], Hint.NONE)
+            else
+                LetterComponent("", Hint.NONE)
+        }
     }
-    WordComponent(hintedString, disableHints, modifier)
 }
 
 @Preview
@@ -72,7 +86,7 @@ fun PreviewWordComponent(){
             WordComponent(HintedString(displayWord = "KLMNO", targetWord = "WORDS"))
             WordComponent(HintedString(displayWord = "PQRST", targetWord = "WORDS"))
             WordComponent(HintedString(displayWord = "UVWXY", targetWord = "WORDS"))
-            WordComponent(word = "Z", targetWord = "WORDS")
+            WordComponent(word = listOf("Z"), targetLength = 5)
         }
     }
 }

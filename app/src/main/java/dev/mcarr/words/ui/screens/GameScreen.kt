@@ -1,17 +1,12 @@
 package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -19,7 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import dev.mcarr.words.classes.HintedString
@@ -47,12 +41,10 @@ fun GameScreen(
 
     // val kc = LocalSoftwareKeyboardController.current
 
-    var wordToGuess = remember {
-        guessModel.wordToGuess
-    }
+    var wordToGuess = guessModel.wordToGuess
 
     var currentGuess by remember {
-        guessModel.guess
+        mutableStateOf(guessModel.guess)
     }
 
     var guesses by remember {
@@ -84,7 +76,7 @@ fun GameScreen(
                 if (i < guesses.size){
                     WordComponent(guesses[i])
                 }else{
-                    WordComponent("", wordToGuess)
+                    WordComponent(listOf(), wordToGuess.length)
                 }
             }
 
@@ -92,8 +84,7 @@ fun GameScreen(
 
         WordComponent(
             currentGuess,
-            wordToGuess,
-            disableHints = true,
+            guessModel.wordToGuess.length,
             modifier = Modifier.constrainAs(refCurrentGuess){
                 bottom.linkTo(refKeyboard.top, margin = 16.dp)
                 start.linkTo(parent.start)
@@ -128,7 +119,7 @@ fun PreviewGameScreen(){
         guessModel.submit()
     }
 
-    guessModel.guess.value = "WORDS"
+    guessModel.guess.addAll("WORDS".chunked(1))
     PreviewComponent {
         GameScreen(
             paddingValues = PaddingValues(0.dp),

@@ -1,8 +1,11 @@
 package dev.mcarr.words.viewmodels
 
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.classes.HintedString
 import dev.mcarr.words.enums.Hint
 
@@ -17,7 +20,7 @@ class GuessViewModel : ViewModel() {
      * The player's current guess as to what the word
      * might be.
      * */
-    var guess = mutableStateOf("")
+    var guess = mutableStateListOf<String>()
 
     /**
      * Boolean indicating whether the guess is in a
@@ -58,13 +61,13 @@ class GuessViewModel : ViewModel() {
      * */
     fun pressKey(letter: String){
 
-        if (guess.value.length == wordToGuess.length){
+        if (guess.size == wordToGuess.length){
             return
         }
 
-        guess.value += letter
+        guess.add(letter)
 
-        if (guess.value.length == wordToGuess.length){
+        if (guess.size == wordToGuess.length){
             canSubmit = true
         }
     }
@@ -73,8 +76,7 @@ class GuessViewModel : ViewModel() {
      * Deletes the last character of the current guess.
      * */
     fun backspace(){
-        val len = guess.value.length
-        if (len > 0) guess.value = guess.value.take(len - 1)
+        guess.removeLastOrNull()
         canSubmit = false
     }
 
@@ -87,7 +89,7 @@ class GuessViewModel : ViewModel() {
     fun start(word: String){
         wordToGuess = word
         previousGuesses.clear()
-        guess.value = ""
+        guess.clear()
         canSubmit = false
         hints.clear()
     }
@@ -102,11 +104,12 @@ class GuessViewModel : ViewModel() {
 
         if (!canSubmit) return
 
-        victory = guess.value == wordToGuess
+        victory = guess.joinToString("") == wordToGuess
 
-        val newGuess = HintedString(guess.value, wordToGuess)
+        val guessString = guess.joinToString("")
+        val newGuess = HintedString(guessString, wordToGuess)
         previousGuesses.add(newGuess)
-        guess.value = ""
+        guess.clear()
         canSubmit = false
 
         newGuess.asList().forEach {

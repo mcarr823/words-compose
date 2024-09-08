@@ -54,7 +54,7 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
                     // Confirm that the value of model.guess.value
                     // equals the letter of the key we just
                     // pressed
-                    assertEquals(letter, model.guess.value)
+                    assertEquals(letter, model.guess[0])
 
                     // Delete it afterwards so we can check
                     // the next key.
@@ -89,9 +89,9 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
         // so let's try clicking it and see if it deletes
         // a character from the current guess.
         model.pressKey("A")
-        assertEquals("A", model.guess.value)
+        assertEquals("A", model.guess[0])
         nodes[0].performClick()
-        assertEquals("", model.guess.value)
+        assertEquals(true, model.guess.isEmpty())
 
         // The second result should be the Enter button,
         // so let's enter a valid guess and see if it submits.
@@ -100,10 +100,10 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
         model.pressKey("C")
         model.pressKey("D")
         model.pressKey("E")
-        assertEquals("ABCDE", model.guess.value)
+        assertEquals("ABCDE", model.guess.joinToString(""))
         assertEquals(0, model.previousGuesses.size)
         nodes[1].performClick()
-        assertEquals("", model.guess.value)
+        assertEquals(true, model.guess.isEmpty())
         assertEquals(1, model.previousGuesses.size)
 
 

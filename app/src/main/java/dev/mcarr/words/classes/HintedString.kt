@@ -26,7 +26,7 @@ class HintedString {
      * This is the word guessed by the player, split up into
      * a list of characters.
      * */
-    private val letters: List<String>
+    val letters: List<String>
 
     /**
      * Hints generated based on the player's input.
@@ -34,7 +34,7 @@ class HintedString {
      * The number of hints should exactly match the number of
      * letters.
      * */
-    private val hints: List<Hint>
+    val hints: List<Hint>
 
     /**
      * @param displayWord The word guessed by the player

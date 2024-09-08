@@ -74,6 +74,15 @@ fun LetterComponent(
 
 }
 
+@Composable
+fun LetterComponent(
+    text: String,
+    hint: Hint
+) {
+    val hintedLetter = HintedLetter(text, hint)
+    LetterComponent(hintedLetter)
+}
+
 @Preview
 @Composable
 fun PreviewLetterComponent(){
