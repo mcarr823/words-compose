@@ -14,6 +14,7 @@ object Destination{
     const val HOME = "HOME"
     const val HOW_TO_PLAY = "HOW_TO_PLAY"
     const val PLAY_GAME = "PLAY_GAME"
+    const val LOAD_GAME = "LOAD_GAME"
     const val ONLINE_SOURCE = "ONLINE_SOURCE"
     const val DOWNLOAD_SOURCE = "DOWNLOAD_SOURCE"
     const val DOWNLOAD_WORD_LIST = "DOWNLOAD_WORD_LIST"

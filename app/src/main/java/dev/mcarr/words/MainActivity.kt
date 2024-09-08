@@ -36,6 +36,7 @@ import androidx.navigation.compose.rememberNavController
 import dev.mcarr.words.enums.Destination
 import dev.mcarr.words.ui.screens.DownloadSourceScreen
 import dev.mcarr.words.ui.screens.DownloadWordListScreen
+import dev.mcarr.words.ui.screens.GameLoadScreen
 import dev.mcarr.words.ui.screens.GameScreen
 import dev.mcarr.words.ui.screens.HomeScreen
 import dev.mcarr.words.ui.screens.HowToPlayScreen
@@ -49,6 +50,7 @@ import dev.mcarr.words.ui.screens.ProcessLocalFileScreen
 import dev.mcarr.words.ui.screens.SetupScreen
 import dev.mcarr.words.ui.theme.WordsTheme
 import dev.mcarr.words.viewmodels.DownloadWordListScreenViewModel
+import dev.mcarr.words.viewmodels.GameLoadScreenViewModel
 import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 import dev.mcarr.words.viewmodels.MainActivityViewModel
@@ -75,6 +77,7 @@ fun MainActivityScreen(
 
     val gameModel = GameScreenViewModel()
     val guessModel = GuessViewModel()
+    val loadGameModel = GameLoadScreenViewModel()
     val downloadWordListModel = DownloadWordListScreenViewModel()
     val processFileModel = ProcessLocalFileScreenViewModel()
 
@@ -135,12 +138,22 @@ fun MainActivityScreen(
                 HomeScreen(
                     paddingValues = padding,
                     howToPlay = { goTo(Destination.HOW_TO_PLAY) },
-                    playNow = { goTo(Destination.PLAY_GAME) }
+                    playNow = { goTo(Destination.LOAD_GAME) }
                 )
             }
 
             composable(Destination.HOW_TO_PLAY){ HowToPlayScreen(padding) }
             composable(Destination.PLAY_GAME){ GameScreen(padding, gameModel, guessModel) }
+            composable(Destination.LOAD_GAME){
+                GameLoadScreen(
+                    padding,
+                    gameScreenViewModel = gameModel,
+                    guessViewModel = guessModel,
+                    model = loadGameModel,
+                    goBack = goBack,
+                    playNow = { goTo(Destination.PLAY_GAME) }
+                )
+            }
             composable(Destination.ONLINE_SOURCE){
                 OnlineSourceScreen(
                     padding,
@@ -162,7 +175,7 @@ fun MainActivityScreen(
                 DownloadWordListScreen(
                     padding,
                     model = downloadWordListModel,
-                    playNow = { goTo(Destination.PLAY_GAME) },
+                    playNow = { goTo(Destination.LOAD_GAME) },
                     goBack = goBack
                 )
             }
@@ -183,7 +196,7 @@ fun MainActivityScreen(
                 ProcessLocalFileScreen(
                     padding,
                     model = processFileModel,
-                    playNow = { goTo(Destination.PLAY_GAME) },
+                    playNow = { goTo(Destination.LOAD_GAME) },
                     goBack = goBack
                 )
             }
@@ -228,6 +241,16 @@ fun MainActivityPlayGamePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
         model.startDetination = Destination.PLAY_GAME
+        MainActivityScreen(model)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainActivityLoadGamePreview() {
+    WordsTheme {
+        val model = MainActivityViewModel()
+        model.startDetination = Destination.LOAD_GAME
         MainActivityScreen(model)
     }
 }
