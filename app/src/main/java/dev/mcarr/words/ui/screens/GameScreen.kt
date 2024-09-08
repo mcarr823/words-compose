@@ -1,10 +1,14 @@
 package dev.mcarr.words.ui.screens
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,7 +19,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
+import dev.mcarr.words.classes.HintedString
 import dev.mcarr.words.ui.components.KeyboardComponent
 import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.components.WordComponent
@@ -40,12 +47,20 @@ fun GameScreen(
 
     // val kc = LocalSoftwareKeyboardController.current
 
-    val currentGuess by remember {
-        mutableStateOf(guessModel.guess)
+    var wordToGuess by remember {
+        guessModel.wordToGuess
     }
 
-    val guesses by remember {
+    var currentGuess by remember {
+        guessModel.guess
+    }
+
+    var guesses by remember {
         mutableStateOf(guessModel.previousGuesses)
+    }
+
+    var guessesToShow by remember {
+        model.guessesToShow
     }
 
     ConstraintLayout(
@@ -55,18 +70,21 @@ fun GameScreen(
         val (refPreviousGuesses, refCurrentGuess, refKeyboard) = createRefs()
 
         LazyColumn(
-            modifier = Modifier.fillMaxWidth()
-                .constrainAs(refPreviousGuesses){
-                    top.linkTo(parent.top)
-                    bottom.linkTo(refCurrentGuess.top)
-                }
+            verticalArrangement = Arrangement.Bottom,
+            modifier = Modifier.fillMaxWidth().constrainAs(refPreviousGuesses){
+                top.linkTo(parent.top)
+                bottom.linkTo(refCurrentGuess.top)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
+                height = Dimension.fillToConstraints
+            }
         ) {
 
-            items(model.guessesToShow){ i ->
+            items(guessesToShow){ i ->
                 if (i < guesses.size){
                     WordComponent(guesses[i])
                 }else{
-                    WordComponent("")
+                    WordComponent("", wordToGuess)
                 }
             }
 
@@ -74,8 +92,12 @@ fun GameScreen(
 
         WordComponent(
             currentGuess,
+            wordToGuess,
+            disableHints = true,
             modifier = Modifier.constrainAs(refCurrentGuess){
-                bottom.linkTo(refKeyboard.top)
+                bottom.linkTo(refKeyboard.top, margin = 16.dp)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
             }
         )
 
@@ -83,6 +105,8 @@ fun GameScreen(
             guessModel,
             modifier = Modifier.constrainAs(refKeyboard){
                 bottom.linkTo(parent.bottom)
+                start.linkTo(parent.start)
+                end.linkTo(parent.end)
             }
         )
 
@@ -103,13 +127,13 @@ fun PreviewGameScreen(){
     val guessModel = GuessViewModel()
     guessModel.start("WORDS")
 
-    val guesses = listOf("ABCDE", "FGHIJ", "KLMNO", "PQRST")
-    guesses.forEach {
-        guessModel.guess = it
+    val guesses = listOf("ABOUT", "WOUND", "WORDY")
+    guesses.forEach { word ->
+        word.chunked(1).forEach(guessModel::pressKey)
         guessModel.submit()
     }
 
-    guessModel.guess = "UVWX "
+    guessModel.guess.value = "WORDS"
     PreviewComponent {
         GameScreen(
             paddingValues = PaddingValues(0.dp),

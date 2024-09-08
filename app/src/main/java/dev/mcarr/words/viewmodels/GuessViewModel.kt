@@ -1,5 +1,6 @@
 package dev.mcarr.words.viewmodels
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import dev.mcarr.words.classes.HintedString
@@ -10,13 +11,13 @@ class GuessViewModel : ViewModel() {
     /**
      * The word which the player needs to guess.
      * */
-    var wordToGuess = ""
+    var wordToGuess = mutableStateOf("")
 
     /**
      * The player's current guess as to what the word
      * might be.
      * */
-    var guess = ""
+    var guess = mutableStateOf("")
 
     /**
      * Boolean indicating whether the guess is in a
@@ -35,7 +36,7 @@ class GuessViewModel : ViewModel() {
      * Defaults to a list of `guessesToShow` blank strings.
      * Each string is padded to a length of `targetLength`.
      * */
-    var previousGuesses = arrayListOf<HintedString>()
+    var previousGuesses = mutableStateListOf<HintedString>()
 
     /**
      * A map of hints for each letter of the alphabet.
@@ -57,13 +58,13 @@ class GuessViewModel : ViewModel() {
      * */
     fun pressKey(letter: String){
 
-        if (guess.length == wordToGuess.length){
+        if (guess.value.length == wordToGuess.value.length){
             return
         }
 
-        guess += letter
+        guess.value += letter
 
-        if (guess.length == wordToGuess.length){
+        if (guess.value.length == wordToGuess.value.length){
             canSubmit = true
         }
     }
@@ -72,8 +73,8 @@ class GuessViewModel : ViewModel() {
      * Deletes the last character of the current guess.
      * */
     fun backspace(){
-        val len = guess.length
-        if (len > 0) guess = guess.take(len - 1)
+        val len = guess.value.length
+        if (len > 0) guess.value = guess.value.take(len - 1)
         canSubmit = false
     }
 
@@ -84,10 +85,11 @@ class GuessViewModel : ViewModel() {
      * for the new game we're about to start.
      * */
     fun start(word: String){
-        wordToGuess = word
-        previousGuesses = ArrayList()
-        guess = ""
+        wordToGuess.value = word
+        previousGuesses.clear()
+        guess.value = ""
         canSubmit = false
+        hints.clear()
     }
 
     /**
@@ -100,11 +102,11 @@ class GuessViewModel : ViewModel() {
 
         if (!canSubmit) return
 
-        victory = guess == wordToGuess
+        victory = guess.value == wordToGuess.value
 
-        val newGuess = HintedString(guess, wordToGuess)
+        val newGuess = HintedString(guess.value, wordToGuess.value)
         previousGuesses.add(newGuess)
-        guess = ""
+        guess.value = ""
         canSubmit = false
 
         newGuess.asList().forEach {
@@ -133,7 +135,7 @@ class GuessViewModel : ViewModel() {
      * @see Hint
      * */
     fun getHint(letter: String): Hint {
-        return hints.get(letter) ?: Hint.NONE
+        return hints[letter] ?: Hint.NONE
     }
 
 }

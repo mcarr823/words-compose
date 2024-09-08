@@ -16,6 +16,6 @@ class GameScreenViewModel : ViewModel() {
      * Maximum number of previous guesses to show
      * on the game screen
      * */
-    val guessesToShow = 4
+    val guessesToShow = mutableStateOf(4)
 
 }

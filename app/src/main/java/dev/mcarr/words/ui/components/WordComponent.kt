@@ -5,6 +5,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -27,8 +29,12 @@ fun WordComponent(
     modifier: Modifier = Modifier
 ) {
 
-    val letters = remember {
-        word.asList(disableHints)
+    val rWord by remember {
+        mutableStateOf(word)
+    }
+
+    val letters by remember {
+        mutableStateOf(rWord.asList(disableHints))
     }
 
     Row(
@@ -45,17 +51,19 @@ fun WordComponent(
 @Composable
 fun WordComponent(
     word: String,
+    targetWord: String,
     disableHints: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    val hintedString = HintedString(word, "")
+    val hintedString = remember {
+        HintedString(word, targetWord)
+    }
     WordComponent(hintedString, disableHints, modifier)
 }
 
 @Preview
 @Composable
 fun PreviewWordComponent(){
-    val targetLength = 5
     PreviewComponent {
         Column {
             HintedString(displayWord = "ABCDE", targetWord = "WORDS")
@@ -64,7 +72,7 @@ fun PreviewWordComponent(){
             WordComponent(HintedString(displayWord = "KLMNO", targetWord = "WORDS"))
             WordComponent(HintedString(displayWord = "PQRST", targetWord = "WORDS"))
             WordComponent(HintedString(displayWord = "UVWXY", targetWord = "WORDS"))
-            WordComponent(HintedString(displayWord = "Z    ", targetWord = "WORDS"))
+            WordComponent(word = "Z", targetWord = "WORDS")
         }
     }
 }
