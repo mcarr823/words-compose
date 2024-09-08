@@ -11,7 +11,7 @@ class GuessViewModel : ViewModel() {
     /**
      * The word which the player needs to guess.
      * */
-    var wordToGuess = mutableStateOf("")
+    var wordToGuess = ""
 
     /**
      * The player's current guess as to what the word
@@ -58,13 +58,13 @@ class GuessViewModel : ViewModel() {
      * */
     fun pressKey(letter: String){
 
-        if (guess.value.length == wordToGuess.value.length){
+        if (guess.value.length == wordToGuess.length){
             return
         }
 
         guess.value += letter
 
-        if (guess.value.length == wordToGuess.value.length){
+        if (guess.value.length == wordToGuess.length){
             canSubmit = true
         }
     }
@@ -85,7 +85,7 @@ class GuessViewModel : ViewModel() {
      * for the new game we're about to start.
      * */
     fun start(word: String){
-        wordToGuess.value = word
+        wordToGuess = word
         previousGuesses.clear()
         guess.value = ""
         canSubmit = false
@@ -102,9 +102,9 @@ class GuessViewModel : ViewModel() {
 
         if (!canSubmit) return
 
-        victory = guess.value == wordToGuess.value
+        victory = guess.value == wordToGuess
 
-        val newGuess = HintedString(guess.value, wordToGuess.value)
+        val newGuess = HintedString(guess.value, wordToGuess)
         previousGuesses.add(newGuess)
         guess.value = ""
         canSubmit = false

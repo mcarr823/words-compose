@@ -47,7 +47,7 @@ fun GameScreen(
 
     // val kc = LocalSoftwareKeyboardController.current
 
-    var wordToGuess by remember {
+    var wordToGuess = remember {
         guessModel.wordToGuess
     }
 
@@ -110,11 +110,6 @@ fun GameScreen(
             }
         )
 
-    }
-
-    LaunchedEffect(Unit) {
-        // TODO hard-coded for testing. Change this
-        guessModel.start("WORDS")
     }
 
 }
