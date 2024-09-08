@@ -31,7 +31,7 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
      * Test all of the alpha keys on the keyboard, one after
      * another, by:
      * - checking if a key exists for each letter of the alphabet
-     * - pressing that key and checking if it updated model.guess
+     * - pressing that key and checking if it updated model.guess.value
      * */
     @Test
     fun testAlphaKeys(){
@@ -48,13 +48,13 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
                     assertIsDisplayed()
 
                     // Click on the key. That should append
-                    // its value to model.guess
+                    // its value to model.guess.value
                     performClick()
 
-                    // Confirm that the value of model.guess
+                    // Confirm that the value of model.guess.value
                     // equals the letter of the key we just
                     // pressed
-                    assertEquals(letter, model.guess)
+                    assertEquals(letter, model.guess.value)
 
                     // Delete it afterwards so we can check
                     // the next key.
@@ -89,9 +89,9 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
         // so let's try clicking it and see if it deletes
         // a character from the current guess.
         model.pressKey("A")
-        assertEquals("A", model.guess)
+        assertEquals("A", model.guess.value)
         nodes[0].performClick()
-        assertEquals("", model.guess)
+        assertEquals("", model.guess.value)
 
         // The second result should be the Enter button,
         // so let's enter a valid guess and see if it submits.
@@ -100,10 +100,10 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
         model.pressKey("C")
         model.pressKey("D")
         model.pressKey("E")
-        assertEquals("ABCDE", model.guess)
+        assertEquals("ABCDE", model.guess.value)
         assertEquals(0, model.previousGuesses.size)
         nodes[1].performClick()
-        assertEquals("", model.guess)
+        assertEquals("", model.guess.value)
         assertEquals(1, model.previousGuesses.size)
 
 
