@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.enums.Hint
 import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
@@ -31,9 +33,7 @@ fun KeyboardComponent(
         mutableStateOf(model.hints)
     }
 
-    val getHint: (letter: String) -> Hint = { letter ->
-        hints[letter] ?: Hint.NONE
-    }
+    val getHint = model::getHint
     val row1 = "QWERTYUIOP".chunked(1)
     val row2 = "ASDFGHJKL".chunked(1)
     val row3 = "ZXCVBNM".chunked(1)
@@ -80,6 +80,10 @@ fun KeyboardComponent(
         }
     }
 
+    LaunchedEffect(hints) {
+        println("Hints changed")
+    }
+
 }
 
 @Preview
@@ -87,10 +91,10 @@ fun KeyboardComponent(
 fun PreviewKeyboardComponent(){
 
     val model = GuessViewModel()
-    model.hints["Q"] = Hint.CORRECT
-    model.hints["W"] = Hint.CORRECT_ANOTHER
-    model.hints["E"] = Hint.WRONG_PLACEMENT
-    model.hints["R"] = Hint.INCORRECT
+    model.hints.add(HintedLetter("Q", Hint.CORRECT))
+    model.hints.add(HintedLetter("W", Hint.CORRECT_ANOTHER))
+    model.hints.add(HintedLetter("E", Hint.WRONG_PLACEMENT))
+    model.hints.add(HintedLetter("R", Hint.INCORRECT))
 
     PreviewComponent {
         KeyboardComponent(

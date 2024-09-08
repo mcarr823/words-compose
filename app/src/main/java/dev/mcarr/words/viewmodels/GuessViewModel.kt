@@ -43,7 +43,7 @@ class GuessViewModel : ViewModel() {
      * Used to provide hinting for individual letters
      * after they've been guessed.
      * */
-    var hints = HashMap<String, Hint>()
+    var hints = mutableStateListOf<HintedLetter>()
 
     /**
      * Responds to a key input event by adding to the
@@ -113,7 +113,8 @@ class GuessViewModel : ViewModel() {
             val (letter, hint) = it.asPair()
             val oldHint = getHint(letter)
             if (oldHint != Hint.CORRECT){
-                hints[letter] = hint
+                hints.removeIf { it.letter == letter }
+                hints.add(it)
             }
         }
 
@@ -135,7 +136,7 @@ class GuessViewModel : ViewModel() {
      * @see Hint
      * */
     fun getHint(letter: String): Hint {
-        return hints[letter] ?: Hint.NONE
+        return hints.find { it.letter == letter }?.hint ?: Hint.NONE
     }
 
 }
