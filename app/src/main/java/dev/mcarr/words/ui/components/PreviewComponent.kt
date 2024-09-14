@@ -19,13 +19,15 @@ import dev.mcarr.words.ui.theme.WordsTheme
  * provide a consistent environment for previews of all
  * components and screens.
  *
+ * @param darkMode If true, preview the view in dark mode
  * @param content The composable to be displayed in the preview.
  * */
 @Composable
 fun PreviewComponent(
+    darkMode: Boolean = false,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    WordsTheme {
+    WordsTheme(darkTheme = darkMode) {
         Scaffold(
             modifier = Modifier.fillMaxSize()
         ) {
@@ -39,8 +41,20 @@ fun PreviewComponent(
 
 @Preview
 @Composable
-fun PreviewPreviewComponent() {
-    PreviewComponent{
+fun PreviewPreviewComponentLight() {
+    PreviewComponent(
+        darkMode = false
+    ){
+        Text(text = "Preview")
+    }
+}
+
+@Preview
+@Composable
+fun PreviewPreviewComponentDark() {
+    PreviewComponent(
+        darkMode = true
+    ){
         Text(text = "Preview")
     }
 }
