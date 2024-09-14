@@ -131,7 +131,7 @@ fun MainActivityScreen(
 
         NavHost(
             navController = navController,
-            startDestination = model.startDetination
+            startDestination = model.startDestination
         ){
 
             composable(Destination.HOME){
@@ -230,7 +230,7 @@ fun MainActivityHomePreview() {
 fun MainActivityHowToPlayPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.HOW_TO_PLAY
+        model.startDestination = Destination.HOW_TO_PLAY
         MainActivityScreen(model)
     }
 }
@@ -240,7 +240,7 @@ fun MainActivityHowToPlayPreview() {
 fun MainActivityPlayGamePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.PLAY_GAME
+        model.startDestination = Destination.PLAY_GAME
         MainActivityScreen(model)
     }
 }
@@ -250,7 +250,7 @@ fun MainActivityPlayGamePreview() {
 fun MainActivityLoadGamePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.LOAD_GAME
+        model.startDestination = Destination.LOAD_GAME
         MainActivityScreen(model)
     }
 }
@@ -260,7 +260,7 @@ fun MainActivityLoadGamePreview() {
 fun MainActivityOnlineSourcePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.ONLINE_SOURCE
+        model.startDestination = Destination.ONLINE_SOURCE
         MainActivityScreen(model)
     }
 }
@@ -270,7 +270,7 @@ fun MainActivityOnlineSourcePreview() {
 fun MainActivityDownloadSourcePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.DOWNLOAD_SOURCE
+        model.startDestination = Destination.DOWNLOAD_SOURCE
         MainActivityScreen(model)
     }
 }
@@ -280,7 +280,7 @@ fun MainActivityDownloadSourcePreview() {
 fun MainActivityImportWordListPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.DOWNLOAD_WORD_LIST
+        model.startDestination = Destination.DOWNLOAD_WORD_LIST
         MainActivityScreen(model)
     }
 }
@@ -290,7 +290,7 @@ fun MainActivityImportWordListPreview() {
 fun MainActivityImportCsvPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.IMPORT_CSV
+        model.startDestination = Destination.IMPORT_CSV
         MainActivityScreen(model)
     }
 }
@@ -300,7 +300,7 @@ fun MainActivityImportCsvPreview() {
 fun MainActivityImportJsonPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.IMPORT_JSON
+        model.startDestination = Destination.IMPORT_JSON
         MainActivityScreen(model)
     }
 }
@@ -310,7 +310,7 @@ fun MainActivityImportJsonPreview() {
 fun MainActivityImportXmlPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.IMPORT_XML
+        model.startDestination = Destination.IMPORT_XML
         MainActivityScreen(model)
     }
 }
@@ -320,7 +320,7 @@ fun MainActivityImportXmlPreview() {
 fun MainActivityImportTxtPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.IMPORT_TXT
+        model.startDestination = Destination.IMPORT_TXT
         MainActivityScreen(model)
     }
 }
@@ -330,7 +330,7 @@ fun MainActivityImportTxtPreview() {
 fun MainActivityImportLocalFilePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.IMPORT_LOCAL_FILE
+        model.startDestination = Destination.IMPORT_LOCAL_FILE
         MainActivityScreen(model)
     }
 }
@@ -340,7 +340,7 @@ fun MainActivityImportLocalFilePreview() {
 fun MainActivityProcessLocalFilePreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.PROCESS_LOCAL_FILE
+        model.startDestination = Destination.PROCESS_LOCAL_FILE
         MainActivityScreen(model)
     }
 }
@@ -350,7 +350,7 @@ fun MainActivityProcessLocalFilePreview() {
 fun MainActivitySetupPreview() {
     WordsTheme {
         val model = MainActivityViewModel()
-        model.startDetination = Destination.SETUP
+        model.startDestination = Destination.SETUP
         MainActivityScreen(model)
     }
 }

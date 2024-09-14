@@ -29,6 +29,6 @@ class MainActivityViewModel : ViewModel() {
      * This value should ONLY be changed for unit testing
      * or preview purposes.
      * */
-    var startDetination = Destination.HOME
+    var startDestination = Destination.HOME
 
 }
