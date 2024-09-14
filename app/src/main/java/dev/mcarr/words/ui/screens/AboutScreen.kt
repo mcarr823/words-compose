@@ -20,6 +20,7 @@ import dev.mcarr.words.BuildConfig
 import dev.mcarr.words.R
 import dev.mcarr.words.ui.components.Heading
 import dev.mcarr.words.ui.components.NavCard
+import dev.mcarr.words.ui.components.NavCardWithIcon
 import dev.mcarr.words.ui.components.PaddedText
 import dev.mcarr.words.ui.components.PreviewComponent
 
@@ -71,7 +72,7 @@ fun AboutScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        NavCard(
+        NavCardWithIcon(
             icon = githubIcon,
             text = "Source Code",
             subtext = githubRepoUrl,
@@ -80,7 +81,7 @@ fun AboutScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        NavCard(
+        NavCardWithIcon(
             icon = githubIcon,
             text = "Report Issue or Request Feature",
             subtext = githubReportIssueUrl,
