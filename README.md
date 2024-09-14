@@ -9,4 +9,12 @@ This app is the Android port of the [self-hosted web version](https://github.com
 
 * This app is a work-in-progress and is not yet functional.
 
-![](screenshots/play.png)
+![Preview Image](screenshots/play.png)
+
+## License
+
+This app uses the Github icon provided by Github, per their [terms of use](https://github.com/logos).
+
+Other icons are provided by Google under Apache License Version 2.0 as part of their [Material Icons](https://developers.google.com/fonts/docs/material_icons) library.
+
+The source code for this app itself is GPLv3 licensed. See the [LICENSE file](./LICENSE).
