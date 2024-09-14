@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Words</string>
+    <string name="github_repo_url">https://github.com/mcarr823/words-compose</string>
+    <string name="github_report_issue_url">https://github.com/mcarr823/words-compose/issues</string>
 </resources>
