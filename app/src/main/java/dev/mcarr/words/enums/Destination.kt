@@ -25,4 +25,5 @@ object Destination{
     const val IMPORT_LOCAL_FILE = "IMPORT_LOCAL_FILE"
     const val PROCESS_LOCAL_FILE = "PROCESS_LOCAL_FILE"
     const val SETUP = "SETUP"
+    const val ABOUT = "ABOUT"
 }
