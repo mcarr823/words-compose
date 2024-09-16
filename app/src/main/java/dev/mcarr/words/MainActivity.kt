@@ -144,7 +144,15 @@ fun MainActivityScreen(
             }
 
             composable(Destination.HOW_TO_PLAY){ HowToPlayScreen(padding) }
-            composable(Destination.PLAY_GAME){ GameScreen(padding, gameModel, guessModel) }
+            composable(Destination.PLAY_GAME){
+                GameScreen(
+                    paddingValues = padding,
+                    model = gameModel,
+                    guessModel = guessModel,
+                    goHome = { navController.popBackStack(Destination.HOME, false) },
+                    playAgain = { navController.popBackStack(Destination.LOAD_GAME, false) }
+                )
+            }
             composable(Destination.LOAD_GAME){
                 GameLoadScreen(
                     padding,

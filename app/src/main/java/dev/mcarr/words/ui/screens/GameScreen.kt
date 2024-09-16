@@ -36,7 +36,9 @@ import dev.mcarr.words.viewmodels.GuessViewModel
 fun GameScreen(
     paddingValues: PaddingValues,
     model: GameScreenViewModel,
-    guessModel: GuessViewModel
+    guessModel: GuessViewModel,
+    playAgain: () -> Unit,
+    goHome: () -> Unit
 ) {
 
     // val kc = LocalSoftwareKeyboardController.current
@@ -124,7 +126,9 @@ fun PreviewGameScreen(){
         GameScreen(
             paddingValues = PaddingValues(0.dp),
             model = model,
-            guessModel = guessModel
+            guessModel = guessModel,
+            playAgain = {},
+            goHome = {}
         )
     }
 }

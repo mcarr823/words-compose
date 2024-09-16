@@ -22,7 +22,9 @@ class GameScreenTest : AbstractUiUnitTest() {
             GameScreen(
                 paddingValues = PaddingValues(0.dp),
                 model = model,
-                guessModel = guessModel
+                guessModel = guessModel,
+                goHome = {},
+                playAgain = {}
             )
         }
 
