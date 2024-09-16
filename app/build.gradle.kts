@@ -54,8 +54,10 @@ android {
     }
 
     ksp {
-        arg("schemaDirectory", "$projectDir/schemas")
-        arg("generateKotlin", "true")
+        arg("room.schemaLocation", "$projectDir/schemas")
+        arg("room.generateKotlin", "true")
+        arg("room.incremental", "true")
+        arg("room.expandProjection", "true")
     }
 }
 
