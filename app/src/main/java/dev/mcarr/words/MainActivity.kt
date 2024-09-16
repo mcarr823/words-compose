@@ -152,7 +152,14 @@ fun MainActivityScreen(
                     guessViewModel = guessModel,
                     model = loadGameModel,
                     goBack = goBack,
-                    playNow = { goTo(Destination.PLAY_GAME) }
+                    playNow = {
+                        navController.navigate(Destination.PLAY_GAME){
+                            // Pop up first, since the LOAD_GAME screen
+                            // redirects to the PLAY_GAME screen, and we
+                            // don't want to end up in a loop.
+                            popUpTo(Destination.HOME)
+                        }
+                    }
                 )
             }
             composable(Destination.ONLINE_SOURCE){

@@ -122,6 +122,12 @@ fun GameLoadScreen(
             if (word.isBlank()) throw Exception("Invalid word")
             guessViewModel.start(word)
             success = true
+
+            // Try to redirect to the game screen automatically.
+            // If this fails for some reason, the player can press
+            // Play Now instead.
+            playNow()
+
         }catch (e: Exception){
             error = true
         }
