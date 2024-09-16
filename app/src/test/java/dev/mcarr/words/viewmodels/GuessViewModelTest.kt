@@ -25,6 +25,7 @@ class GuessViewModelTest {
         assertEquals("", model.guess.joinToString(""))
         assertEquals(false, model.canSubmit)
         assertEquals(false, model.victory)
+        assertEquals(false, model.gameOver)
         assertEquals(true, model.previousGuesses.isEmpty())
         assertEquals(true, model.hints.isEmpty())
 
@@ -41,6 +42,8 @@ class GuessViewModelTest {
         assertEquals(true, model.previousGuesses.isEmpty())
         assertEquals(true, model.guess.isEmpty())
         assertEquals(false, model.canSubmit)
+        assertEquals(false, model.victory)
+        assertEquals(false, model.gameOver)
     }
 
     /**
@@ -237,6 +240,172 @@ class GuessViewModelTest {
         assertEquals(Hint.CORRECT, model.getHint("R"))
         assertEquals(Hint.CORRECT, model.getHint("D"))
         assertEquals(Hint.INCORRECT, model.getHint("Y"))
+
+    }
+
+    /**
+     * Tests the submit() function.
+     *
+     * This test guesses the word correctly, submits it,
+     * and checks if the victory variable is updated.
+     * */
+    @Test
+    fun submitVictory(){
+        model.start("WORDS")
+
+        // Our guess is "WORDS", which is correct.
+        model.pressKey("W")
+        model.pressKey("O")
+        model.pressKey("R")
+        model.pressKey("D")
+        model.pressKey("S")
+
+        assertEquals(0, model.previousGuesses.size)
+        assertEquals(5, model.guess.size)
+        assertEquals(true, model.canSubmit)
+        assertEquals(false, model.gameOver)
+        assertEquals(false, model.victory)
+
+        // Try to submit
+        model.submit()
+
+        // The number of previous guesses should now be 1.
+        // The current guess should be reset to an empty string,
+        // and we can't submit again yet because we haven't entered
+        // another guess.
+        assertEquals(1, model.previousGuesses.size)
+        assertEquals(0, model.guess.size)
+        assertEquals(false, model.canSubmit)
+
+        // We should also have 5 hints now, since our guess WORDS
+        // is 5 chars and doesn't have any duplicate characters.
+        assertEquals(5, model.hints.size)
+
+        // While we're there, we might as well double check that
+        // the individual hints were applied correctly.
+        assertEquals(Hint.CORRECT, model.getHint("W"))
+        assertEquals(Hint.CORRECT, model.getHint("O"))
+        assertEquals(Hint.CORRECT, model.getHint("R"))
+        assertEquals(Hint.CORRECT, model.getHint("D"))
+        assertEquals(Hint.CORRECT, model.getHint("S"))
+
+        // Finally, check the victory and gameOver variables
+        // Victory should be true, but gameOver is false, since
+        // we got it correct in 1 attempt.
+        assertEquals(true, model.victory)
+        assertEquals(false, model.gameOver)
+
+    }
+
+    /**
+     * Tests the submit() function.
+     *
+     * This test guesses the word incorrectly, submits it,
+     * and checks if the gameOver variable is updated.
+     * */
+    @Test
+    fun submitGameOver(){
+
+        // Only allow 1 guess for this test
+        model.guessesAllowed = 1
+
+        model.start("WORDS")
+
+        // Our guess is "WORDY", which is incorrect.
+        model.pressKey("W")
+        model.pressKey("O")
+        model.pressKey("R")
+        model.pressKey("D")
+        model.pressKey("Y")
+
+        assertEquals(0, model.previousGuesses.size)
+        assertEquals(5, model.guess.size)
+        assertEquals(true, model.canSubmit)
+        assertEquals(false, model.gameOver)
+        assertEquals(false, model.victory)
+
+        // Try to submit
+        model.submit()
+
+        // The number of previous guesses should now be 1.
+        // The current guess should be reset to an empty string,
+        // and we can't submit again yet because we haven't entered
+        // another guess.
+        assertEquals(1, model.previousGuesses.size)
+        assertEquals(0, model.guess.size)
+        assertEquals(false, model.canSubmit)
+
+        // We should also have 5 hints now, since our guess WORDY
+        // is 5 chars and doesn't have any duplicate characters.
+        assertEquals(5, model.hints.size)
+
+        // While we're there, we might as well double check that
+        // the individual hints were applied correctly.
+        assertEquals(Hint.CORRECT, model.getHint("W"))
+        assertEquals(Hint.CORRECT, model.getHint("O"))
+        assertEquals(Hint.CORRECT, model.getHint("R"))
+        assertEquals(Hint.CORRECT, model.getHint("D"))
+        assertEquals(Hint.INCORRECT, model.getHint("Y"))
+
+        // Finally, check the victory and gameOver variables
+        assertEquals(true, model.gameOver)
+        assertEquals(false, model.victory)
+
+    }
+
+    /**
+     * This test is the same as submitVictory(),
+     * except that it only allows a single guess.
+     *
+     * This means that gameOver and victory should both
+     * be set to true, instead of just victory being
+     * set to true.
+     * */
+    @Test
+    fun submitVictoryOneGuessAllowed(){
+
+        model.guessesAllowed = 1
+        model.start("WORDS")
+
+        // Our guess is "WORDS", which is correct.
+        model.pressKey("W")
+        model.pressKey("O")
+        model.pressKey("R")
+        model.pressKey("D")
+        model.pressKey("S")
+
+        assertEquals(0, model.previousGuesses.size)
+        assertEquals(5, model.guess.size)
+        assertEquals(true, model.canSubmit)
+        assertEquals(false, model.gameOver)
+        assertEquals(false, model.victory)
+
+        // Try to submit
+        model.submit()
+
+        // The number of previous guesses should now be 1.
+        // The current guess should be reset to an empty string,
+        // and we can't submit again yet because we haven't entered
+        // another guess.
+        assertEquals(1, model.previousGuesses.size)
+        assertEquals(0, model.guess.size)
+        assertEquals(false, model.canSubmit)
+
+        // We should also have 5 hints now, since our guess WORDS
+        // is 5 chars and doesn't have any duplicate characters.
+        assertEquals(5, model.hints.size)
+
+        // While we're there, we might as well double check that
+        // the individual hints were applied correctly.
+        assertEquals(Hint.CORRECT, model.getHint("W"))
+        assertEquals(Hint.CORRECT, model.getHint("O"))
+        assertEquals(Hint.CORRECT, model.getHint("R"))
+        assertEquals(Hint.CORRECT, model.getHint("D"))
+        assertEquals(Hint.CORRECT, model.getHint("S"))
+
+        // Finally, check the victory and gameOver variables.
+        assertEquals(true, model.victory)
+        assertEquals(true, model.gameOver)
 
     }
 
