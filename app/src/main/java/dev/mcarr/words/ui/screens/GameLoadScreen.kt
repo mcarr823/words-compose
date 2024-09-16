@@ -117,6 +117,7 @@ fun GameLoadScreen(
     LaunchedEffect(key1 = downloadAttempt) {
 
         try{
+            model.firstTimeInit(context)
             val word = model.getWord(context) ?: throw Exception("Failed to load word")
             if (word.isBlank()) throw Exception("Invalid word")
             guessViewModel.start(word)
