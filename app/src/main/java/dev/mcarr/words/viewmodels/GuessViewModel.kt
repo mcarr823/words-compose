@@ -12,6 +12,12 @@ import dev.mcarr.words.enums.Hint
 class GuessViewModel : ViewModel() {
 
     /**
+     * Maximum number of guesses the player is allowed
+     * to make.
+     * */
+    var guessesAllowed = 6
+
+    /**
      * The word which the player needs to guess.
      * */
     var wordToGuess = ""
@@ -33,6 +39,15 @@ class GuessViewModel : ViewModel() {
      * and won the game.
      * */
     var victory = false
+
+    /**
+     * If true, the player has reached the maximum number
+     * of allowed guesses.
+     * 
+     * Note that gameOver and victory are not mutually exclusive.
+     * They can both be true at the same time.
+     * */
+    var gameOver = false
 
     /**
      * Arraylist holding the player's previous guesses.
@@ -92,6 +107,8 @@ class GuessViewModel : ViewModel() {
         guess.clear()
         canSubmit = false
         hints.clear()
+        victory = false
+        gameOver = false
     }
 
     /**
@@ -119,6 +136,10 @@ class GuessViewModel : ViewModel() {
                 hints.removeIf { it.letter == letter }
                 hints.add(it)
             }
+        }
+
+        if (previousGuesses.size == guessesAllowed){
+            gameOver = true
         }
 
     }
