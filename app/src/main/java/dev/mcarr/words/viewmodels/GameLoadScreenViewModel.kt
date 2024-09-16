@@ -24,7 +24,7 @@ class GameLoadScreenViewModel : ViewModel() {
      * Source from which to retrieve a word.
      * @see WordSource
      * */
-    var source = mutableStateOf(WordSource.TEST)
+    var source = mutableStateOf(WordSource.DATABASE)
 
     /**
      * Boolean indicating that the download request
