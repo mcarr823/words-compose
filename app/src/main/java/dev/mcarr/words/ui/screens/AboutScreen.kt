@@ -68,6 +68,7 @@ fun AboutScreen(
         PaddedText(text = "Developed by mcarr823")
         PaddedText(text = "Github icon provided by Github")
         PaddedText(text = "Other icons provided by Google under Apache License Version 2.0")
+        PaddedText(text = "Default word list provided by Heroku App")
         PaddedText(text = "See the Github page for up to date information on licensing, credits, etc.")
 
         Spacer(modifier = Modifier.height(8.dp))

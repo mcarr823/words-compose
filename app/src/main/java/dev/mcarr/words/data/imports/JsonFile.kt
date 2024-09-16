@@ -23,12 +23,11 @@ import java.io.File
  * ["fiver","words","ports"]
  * ```
  *
- * @param file JSON file containing the words to import
+ * @param data JSON string containing the words to import
  * */
-class JsonFile(file: File) : WordFile() {
+class JsonFile(data: String) : WordFile() {
 
     init {
-        val data = file.readText()
         val jsonWords =
             try {
                 val json = JSONObject(data)
@@ -42,5 +41,10 @@ class JsonFile(file: File) : WordFile() {
             .map(::Word)
             .forEach(this.words::add)
     }
+
+    /**
+     * @param file JSON file containing the words to import
+     * */
+    constructor(file: File) : this(file.readText())
 
 }

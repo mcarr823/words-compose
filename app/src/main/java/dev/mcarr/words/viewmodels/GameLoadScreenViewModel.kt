@@ -3,11 +3,15 @@ package dev.mcarr.words.viewmodels
 import android.content.Context
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import dev.mcarr.words.R
 import dev.mcarr.words.api.http.HerokuHttpClient
 import dev.mcarr.words.api.http.RandoHttpClient
 import dev.mcarr.words.api.http.RyanrkHttpClient
+import dev.mcarr.words.data.imports.JsonFile
 import dev.mcarr.words.data.repos.WordRepository
 import dev.mcarr.words.enums.WordSource
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * Viewmodel used by the GameLoadScreen component.
@@ -57,5 +61,18 @@ class GameLoadScreenViewModel : ViewModel() {
             WordSource.TEST -> "WORDS" // Hard-coded test value
             else -> null
         }
+    suspend fun firstTimeInit(context: Context) = withContext(Dispatchers.IO) {
+        if (source.value == WordSource.DATABASE) {
+            val repo = WordRepository.getInstance(context)
+            if (repo.count() == 0){
+                val str = context.resources
+                    .openRawResource(R.raw.default_word_list)
+                    .bufferedReader()
+                    .use { it.readText() }
+                val wordFile = JsonFile(str)
+                repo.insert(wordFile.words)
+            }
+        }
+    }
 
 }
