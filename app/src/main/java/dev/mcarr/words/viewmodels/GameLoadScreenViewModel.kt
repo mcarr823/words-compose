@@ -44,7 +44,13 @@ class GameLoadScreenViewModel : ViewModel() {
      * */
     var downloadAttempt = mutableStateOf(1)
 
-    var startAutomatically = true
+    /**
+     * The length of the random word we want the player
+     * to guess.
+     * TODO make this a setting so players can choose
+     * their own word length.
+     * */
+    var targetWordLength = 5
 
     fun reset(){
         success.value = false
@@ -52,15 +58,17 @@ class GameLoadScreenViewModel : ViewModel() {
         downloadAttempt.value = 1
     }
 
-    suspend fun getWord(context: Context): String? =
-        when (source.value){
-            WordSource.ONLINE_HEROKU -> HerokuHttpClient().getRandomWord()
-            WordSource.ONLINE_RANDO -> RandoHttpClient().getRandomWord()
-            WordSource.ONLINE_RYANRK -> RyanrkHttpClient().getRandomWord()
-            WordSource.DATABASE -> WordRepository.getInstance(context).getRandom()?.text
+    suspend fun getWord(context: Context): String? = withContext(Dispatchers.IO) {
+        when (source.value) {
+            WordSource.ONLINE_HEROKU -> HerokuHttpClient().getRandomWord(targetWordLength)
+            WordSource.ONLINE_RANDO -> RandoHttpClient().getRandomWord(targetWordLength)
+            WordSource.ONLINE_RYANRK -> RyanrkHttpClient().getRandomWord(targetWordLength)
+            WordSource.DATABASE -> WordRepository.getInstance(context).getRandom(targetWordLength)?.text
             WordSource.TEST -> "WORDS" // Hard-coded test value
             else -> null
         }
+    }
+
     suspend fun firstTimeInit(context: Context) = withContext(Dispatchers.IO) {
         if (source.value == WordSource.DATABASE) {
             val repo = WordRepository.getInstance(context)
