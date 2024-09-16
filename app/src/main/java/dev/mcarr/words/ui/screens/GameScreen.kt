@@ -74,7 +74,7 @@ fun GameScreen(
             }
         ) {
 
-            items(guessesToShow){ i ->
+            items(model.guessesToShow){ i ->
                 if (i < guesses.size){
                     WordComponent(guesses[i])
                 }else{
