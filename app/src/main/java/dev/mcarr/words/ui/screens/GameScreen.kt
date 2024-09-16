@@ -1,25 +1,38 @@
 package dev.mcarr.words.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import dev.mcarr.words.classes.HintedString
+import dev.mcarr.words.ui.components.ColoredTextButton
+import dev.mcarr.words.ui.components.Heading
 import dev.mcarr.words.ui.components.KeyboardComponent
+import dev.mcarr.words.ui.components.PaddedText
 import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.components.WordComponent
+import dev.mcarr.words.ui.theme.Blue
+import dev.mcarr.words.ui.theme.Gray
+import dev.mcarr.words.ui.theme.Green
+import dev.mcarr.words.ui.theme.Orange
 import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 
@@ -53,8 +66,8 @@ fun GameScreen(
         mutableStateOf(guessModel.previousGuesses)
     }
 
-    var guessesToShow by remember {
-        model.guessesToShow
+    var victory by remember {
+        mutableStateOf(guessModel.victory)
     }
 
     ConstraintLayout(
@@ -103,6 +116,37 @@ fun GameScreen(
             }
         )
 
+    }
+
+    if (victory){
+        Dialog(onDismissRequest = {}){
+
+            Column {
+                Heading("Victory")
+                PaddedText("The word was: $wordToGuess")
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.padding(8.dp).fillMaxWidth()
+                ) {
+
+                    ColoredTextButton(
+                        backgroundColor = Gray,
+                        textColor = Color.White,
+                        text = "Finish",
+                        onClick = goHome
+                    )
+
+                    ColoredTextButton(
+                        backgroundColor = Blue,
+                        textColor = Color.White,
+                        text = "Play Again",
+                        onClick = playAgain
+                    )
+
+                }
+            }
+
+        }
     }
 
 }
