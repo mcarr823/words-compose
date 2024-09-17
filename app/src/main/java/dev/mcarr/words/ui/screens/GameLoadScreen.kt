@@ -31,7 +31,6 @@ import dev.mcarr.words.ui.components.PaddedText
 import dev.mcarr.words.ui.components.PreviewComponent
 import dev.mcarr.words.ui.theme.Blue
 import dev.mcarr.words.viewmodels.GameLoadScreenViewModel
-import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 
 @Composable
@@ -39,7 +38,6 @@ fun GameLoadScreen(
     paddingValues: PaddingValues,
     model: GameLoadScreenViewModel,
     guessViewModel: GuessViewModel,
-    gameScreenViewModel: GameScreenViewModel,
     playNow: () -> Unit,
     goBack: () -> Unit
 ) {
@@ -147,14 +145,12 @@ fun PreviewGameLoadScreenDownloading(){
     val model = GameLoadScreenViewModel()
     model.source.value = WordSource.TEST
     val guessViewModel = GuessViewModel()
-    val gameScreenViewModel = GameScreenViewModel()
 
     PreviewComponent {
         GameLoadScreen(
             paddingValues = PaddingValues(0.dp),
             model = model,
             guessViewModel = guessViewModel,
-            gameScreenViewModel = gameScreenViewModel,
             playNow = {},
             goBack = {}
         )
@@ -171,14 +167,12 @@ fun PreviewGameLoadScreenError(){
     model.error.value = true
 
     val guessViewModel = GuessViewModel()
-    val gameScreenViewModel = GameScreenViewModel()
 
     PreviewComponent {
         GameLoadScreen(
             paddingValues = PaddingValues(0.dp),
             model = model,
             guessViewModel = guessViewModel,
-            gameScreenViewModel = gameScreenViewModel,
             playNow = {},
             goBack = {}
         )

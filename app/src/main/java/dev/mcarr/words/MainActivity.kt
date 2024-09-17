@@ -44,7 +44,6 @@ import dev.mcarr.words.ui.screens.SetupScreen
 import dev.mcarr.words.ui.theme.WordsTheme
 import dev.mcarr.words.viewmodels.DownloadWordListScreenViewModel
 import dev.mcarr.words.viewmodels.GameLoadScreenViewModel
-import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 import dev.mcarr.words.viewmodels.MainActivityViewModel
 import dev.mcarr.words.viewmodels.ProcessLocalFileScreenViewModel
@@ -68,7 +67,6 @@ fun MainActivityScreen(
     model: MainActivityViewModel
 ){
 
-    val gameModel = GameScreenViewModel()
     val guessModel = GuessViewModel()
     val loadGameModel = GameLoadScreenViewModel()
     val downloadWordListModel = DownloadWordListScreenViewModel()
@@ -147,7 +145,6 @@ fun MainActivityScreen(
             composable(Destination.PLAY_GAME){
                 GameScreen(
                     paddingValues = padding,
-                    model = gameModel,
                     guessModel = guessModel,
                     goHome = { navController.popBackStack(Destination.HOME, false) },
                     playAgain = { navController.popBackStack(Destination.LOAD_GAME, false) }
@@ -156,7 +153,6 @@ fun MainActivityScreen(
             composable(Destination.LOAD_GAME){
                 GameLoadScreen(
                     padding,
-                    gameScreenViewModel = gameModel,
                     guessViewModel = guessModel,
                     model = loadGameModel,
                     goBack = goBack,

@@ -33,7 +33,6 @@ import dev.mcarr.words.ui.theme.Blue
 import dev.mcarr.words.ui.theme.Gray
 import dev.mcarr.words.ui.theme.Green
 import dev.mcarr.words.ui.theme.Orange
-import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 
 /**
@@ -48,7 +47,6 @@ import dev.mcarr.words.viewmodels.GuessViewModel
 @Composable
 fun GameScreen(
     paddingValues: PaddingValues,
-    model: GameScreenViewModel,
     guessModel: GuessViewModel,
     playAgain: () -> Unit,
     goHome: () -> Unit
@@ -159,7 +157,6 @@ fun GameScreen(
 @Composable
 fun PreviewGameScreen(){
 
-    val model = GameScreenViewModel()
     val guessModel = GuessViewModel()
     guessModel.start("WORDS")
 
@@ -173,7 +170,6 @@ fun PreviewGameScreen(){
     PreviewComponent {
         GameScreen(
             paddingValues = PaddingValues(0.dp),
-            model = model,
             guessModel = guessModel,
             playAgain = {},
             goHome = {}

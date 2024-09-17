@@ -20,7 +20,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.enums.Hint
-import dev.mcarr.words.viewmodels.GameScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 
 @Composable
