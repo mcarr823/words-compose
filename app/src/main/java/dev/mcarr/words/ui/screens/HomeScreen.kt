@@ -41,8 +41,9 @@ fun HomeScreen(
     ) {
         Heading(text = "Welcome to Words!")
 
-        PaddedText(text = "Words is a self-hosted Wordle clone which lets you choose your own difficulty and word list.")
-        PaddedText(text = "Press Play to get started, or go into Setup to modify your experience.")
+        PaddedText(text = "Words is a free, open source, ad-free Wordle clone.")
+        PaddedText(text = "Press Play to get started, or How To Play to learn the rules of the game.")
+        PaddedText(text = "To report bugs, request features, or learn more about the app's development, tap on About.")
 
         Row(
             horizontalArrangement = Arrangement.SpaceEvenly,

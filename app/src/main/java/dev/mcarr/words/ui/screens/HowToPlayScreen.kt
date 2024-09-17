@@ -40,9 +40,9 @@ fun HowToPlayScreen(
         Heading(text = "How To Play")
 
         PaddedText(text = "A random word will be selected for you to guess.")
-        PaddedText(text = "To guess what it is, type a word with your keyboard, or use the on-screen keyboard.")
+        PaddedText(text = "To guess what it is, use the on-screen keyboard to type a word.")
         PaddedText(text = "The letters will appear in the bottom row of boxes on the screen.")
-        PaddedText(text = "Once you've filled the bottom row of boxes, click on the Tick button, or press Enter.")
+        PaddedText(text = "Once you've filled the bottom row of boxes, click on the Tick button to submit your guess.")
         PaddedText(text = "Every time you make a guess, letters will come up in the following colors:")
 
         ColoredBulletPoint(
@@ -59,7 +59,7 @@ fun HowToPlayScreen(
 
         ColoredBulletPoint(
             coloredText = "Yellow",
-            regularText = "Incorrect guess, but that letter does appear somewhere else in the word",
+            regularText = "Incorrect guess, but that letter does appear somewhere in the word",
             textColor = Orange
         )
 
