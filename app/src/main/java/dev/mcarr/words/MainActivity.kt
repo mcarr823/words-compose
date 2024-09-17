@@ -147,7 +147,15 @@ fun MainActivityScreen(
                     paddingValues = padding,
                     guessModel = guessModel,
                     goHome = { navController.popBackStack(Destination.HOME, false) },
-                    playAgain = { navController.popBackStack(Destination.LOAD_GAME, false) }
+                    playAgain = {
+                        navController.navigate(Destination.LOAD_GAME){
+                            // Pop up first, so we have a consistent direction
+                            // of composables in the stack and don't add any twice.
+                            // ie. Home -> Load -> Play -> back to Home
+                            // instead of Home -> Load -> Play -> Load -> Play -> etc.
+                            popUpTo(Destination.HOME)
+                        }
+                    }
                 )
             }
             composable(Destination.LOAD_GAME){
