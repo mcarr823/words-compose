@@ -30,7 +30,24 @@ class JsonFileTest {
     }
 
     /**
-     * Parse a JSON file in the first format
+     * Parse a JSON string in the first format
+     * ```
+     * {"words":["word"]}
+     * ```
+     * */
+    @Test
+    fun parseStringTest(){
+
+        val data = """
+            {"words":["test","pest","rest"]}
+        """.trimIndent().trim()
+        val jsonFile = JsonFile(data)
+        assertEquals(3, jsonFile.words.size)
+
+    }
+
+    /**
+     * Parse a JSON file in the second format
      * ```
      * ["word"]
      * ```
@@ -44,6 +61,23 @@ class JsonFileTest {
         val file = File.createTempFile("test", ".json")
         file.writeText(data)
         val jsonFile = JsonFile(file)
+        assertEquals(3, jsonFile.words.size)
+
+    }
+
+    /**
+     * Parse a JSON string in the second format
+     * ```
+     * ["word"]
+     * ```
+     * */
+    @Test
+    fun parseStringAltFormatTest(){
+
+        val data = """
+            ["test","pest","rest"]
+        """.trimIndent().trim()
+        val jsonFile = JsonFile(data)
         assertEquals(3, jsonFile.words.size)
 
     }
@@ -65,6 +99,31 @@ class JsonFileTest {
         val success =
             try {
                 val jsonFile = JsonFile(file)
+                length = jsonFile.words.size
+                true
+            }catch (e: JSONException){
+                false
+            }
+        assertEquals(0, length)
+        assertEquals(false, success)
+
+    }
+
+    /**
+     * Fail to parse a broken JSON file
+     * */
+    @Test
+    fun parseBrokenStringTest(){
+
+        // Missing the closing square bracket
+        val data = """
+            ["test","pest","rest"
+        """.trimIndent().trim()
+
+        var length = 0
+        val success =
+            try {
+                val jsonFile = JsonFile(data)
                 length = jsonFile.words.size
                 true
             }catch (e: JSONException){
