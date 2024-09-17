@@ -269,12 +269,12 @@ class GuessViewModelTest {
         // Try to submit
         model.submit()
 
-        // The number of previous guesses should now be 1.
-        // The current guess should be reset to an empty string,
-        // and we can't submit again yet because we haven't entered
-        // another guess.
-        assertEquals(1, model.previousGuesses.size)
-        assertEquals(0, model.guess.size)
+        // The number of previous guesses should still be 0,
+        // since we end the game immediately on a correct guess.
+        // The current guess should still be equal to the guess,
+        // and we can't submit again.
+        assertEquals(0, model.previousGuesses.size)
+        assertEquals(5, model.guess.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDS
@@ -290,8 +290,8 @@ class GuessViewModelTest {
         assertEquals(Hint.CORRECT, model.getHint("S"))
 
         // Finally, check the victory and gameOver variables
-        // Victory should be true, but gameOver is false, since
-        // we got it correct in 1 attempt.
+        // Victory should be true, which means gameOver should
+        // also be true.
         assertEquals(true, model.victory.value)
         assertEquals(true, model.gameOver.value)
 
@@ -327,12 +327,13 @@ class GuessViewModelTest {
         // Try to submit
         model.submit()
 
-        // The number of previous guesses should now be 1.
+        // The number of previous guesses should still be 0,
+        // since only one guess was allowed.
         // The current guess should be reset to an empty string,
         // and we can't submit again yet because we haven't entered
         // another guess.
-        assertEquals(1, model.previousGuesses.size)
-        assertEquals(0, model.guess.size)
+        assertEquals(0, model.previousGuesses.size)
+        assertEquals(5, model.guess.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDY
@@ -383,12 +384,12 @@ class GuessViewModelTest {
         // Try to submit
         model.submit()
 
-        // The number of previous guesses should now be 1.
-        // The current guess should be reset to an empty string,
-        // and we can't submit again yet because we haven't entered
-        // another guess.
-        assertEquals(1, model.previousGuesses.size)
-        assertEquals(0, model.guess.size)
+        // The number of previous guesses should still be 0, since
+        // a correct guess ends the game immediately.
+        // The current guess should still be the last guess,
+        // and we can't submit again.
+        assertEquals(0, model.previousGuesses.size)
+        assertEquals(5, model.guess.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDS
