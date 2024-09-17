@@ -100,13 +100,22 @@ fun MainActivityScreen(
             TopAppBar(
                 title = {},
                 actions = {
-                    if (route == Destination.HOME) {
-                        Row {
-                            TextButton(onClick = { goTo(Destination.SETUP) }) {
-                                Text("Settings")
+
+                    // Disable the settings screen in the playstore version
+                    // for the time being.
+                    // The only settings available right now are word source
+                    // selections, and those haven't been tested enough to
+                    // be released.
+                    if (BuildConfig.FLAVOR != "playstore") {
+                        if (route == Destination.HOME) {
+                            Row {
+                                TextButton(onClick = { goTo(Destination.SETUP) }) {
+                                    Text("Settings")
+                                }
                             }
                         }
                     }
+
                 },
                 navigationIcon = {
                     if (route == Destination.HOME) {
