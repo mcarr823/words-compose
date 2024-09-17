@@ -108,7 +108,11 @@ fun GameLoadScreen(
         } else {
             Heading(text = "Loading")
             Spacer(modifier = Modifier.height(16.dp))
-            PaddedText(text = "Preparing your game...")
+            if (model.source.value == WordSource.DATABASE){
+                PaddedText(text = "Performing first-time setup...")
+            }else{
+                PaddedText(text = "Preparing your game...")
+            }
             Spacer(modifier = Modifier.height(16.dp))
             CircularProgressIndicator()
         }
