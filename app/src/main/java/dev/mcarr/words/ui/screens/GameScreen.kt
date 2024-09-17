@@ -70,6 +70,10 @@ fun GameScreen(
         mutableStateOf(guessModel.victory)
     }
 
+    val guessesToShow = remember {
+        guessModel.guessesAllowed - 1
+    }
+
     ConstraintLayout(
         modifier = Modifier.fillMaxSize().padding(paddingValues)
     ){
@@ -87,7 +91,7 @@ fun GameScreen(
             }
         ) {
 
-            items(model.guessesToShow){ i ->
+            items(guessesToShow){ i ->
                 if (i < guesses.size){
                     WordComponent(guesses[i])
                 }else{
