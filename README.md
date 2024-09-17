@@ -9,7 +9,9 @@ This app is the Android port of the [self-hosted web version](https://github.com
 
 * This app is a work-in-progress and is not yet functional.
 
-![Preview Image](screenshots/play.png)
+<img src="screenshots/phone/home-light.png" alt="preview1" width="200"/>
+<img src="screenshots/phone/instructions-dark.png" alt="preview1" width="200"/>
+<img src="screenshots/phone/victory-light.png" alt="preview3" width="200"/>
 
 ## Credits
 
