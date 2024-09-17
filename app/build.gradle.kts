@@ -31,6 +31,17 @@ android {
             )
         }
     }
+    flavorDimensions += "version"
+    productFlavors {
+        create("full") {
+            // This is the full version of the app, with all
+            // beta features and such enabled.
+        }
+        create("playstore") {
+            // Variant specifically for the play store, with
+            // any beta features removed.
+        }
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
