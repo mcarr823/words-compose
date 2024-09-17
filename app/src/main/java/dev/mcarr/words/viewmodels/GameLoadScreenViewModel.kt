@@ -78,7 +78,10 @@ class GameLoadScreenViewModel : ViewModel() {
                     .bufferedReader()
                     .use { it.readText() }
                 val wordFile = JsonFile(str)
-                repo.insert(wordFile.words)
+                val words = wordFile.words
+                    .filter { it.letters == 5 } // TODO remove this once other word lengths are supported
+                repo.insert(words)
+                // TODO re-run this if the user changes the target word length?
             }
         }
     }
