@@ -38,16 +38,16 @@ class GuessViewModel : ViewModel() {
      * If true, the player has guessed the word correctly
      * and won the game.
      * */
-    var victory = false
+    var victory = mutableStateOf(false)
 
     /**
      * If true, the player has reached the maximum number
      * of allowed guesses.
-     * 
+     *
      * Note that gameOver and victory are not mutually exclusive.
      * They can both be true at the same time.
      * */
-    var gameOver = false
+    var gameOver = mutableStateOf(false)
 
     /**
      * Arraylist holding the player's previous guesses.
@@ -107,8 +107,8 @@ class GuessViewModel : ViewModel() {
         guess.clear()
         canSubmit = false
         hints.clear()
-        victory = false
-        gameOver = false
+        victory.value = false
+        gameOver.value = false
     }
 
     /**
@@ -121,13 +121,12 @@ class GuessViewModel : ViewModel() {
 
         if (!canSubmit) return
 
-        victory = guess.joinToString("") == wordToGuess
-
         val guessString = guess.joinToString("")
+
+        victory.value = guessString == wordToGuess
+        //println("Comparing $guessString to $wordToGuess: ${victory.value}")
+
         val newGuess = HintedString(guessString, wordToGuess)
-        previousGuesses.add(newGuess)
-        guess.clear()
-        canSubmit = false
 
         newGuess.asList().forEach {
             val (letter, hint) = it.asPair()
@@ -138,8 +137,13 @@ class GuessViewModel : ViewModel() {
             }
         }
 
-        if (previousGuesses.size == guessesAllowed){
-            gameOver = true
+        if (victory.value || previousGuesses.size == guessesAllowed - 1){
+            gameOver.value = true
+            canSubmit = false
+        }else{
+            previousGuesses.add(newGuess)
+            guess.clear()
+            canSubmit = false
         }
 
     }

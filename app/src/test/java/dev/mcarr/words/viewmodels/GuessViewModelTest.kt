@@ -24,8 +24,8 @@ class GuessViewModelTest {
         assertEquals("", model.wordToGuess)
         assertEquals("", model.guess.joinToString(""))
         assertEquals(false, model.canSubmit)
-        assertEquals(false, model.victory)
-        assertEquals(false, model.gameOver)
+        assertEquals(false, model.victory.value)
+        assertEquals(false, model.gameOver.value)
         assertEquals(true, model.previousGuesses.isEmpty())
         assertEquals(true, model.hints.isEmpty())
 
@@ -42,8 +42,8 @@ class GuessViewModelTest {
         assertEquals(true, model.previousGuesses.isEmpty())
         assertEquals(true, model.guess.isEmpty())
         assertEquals(false, model.canSubmit)
-        assertEquals(false, model.victory)
-        assertEquals(false, model.gameOver)
+        assertEquals(false, model.victory.value)
+        assertEquals(false, model.gameOver.value)
     }
 
     /**
@@ -263,8 +263,8 @@ class GuessViewModelTest {
         assertEquals(0, model.previousGuesses.size)
         assertEquals(5, model.guess.size)
         assertEquals(true, model.canSubmit)
-        assertEquals(false, model.gameOver)
-        assertEquals(false, model.victory)
+        assertEquals(false, model.gameOver.value)
+        assertEquals(false, model.victory.value)
 
         // Try to submit
         model.submit()
@@ -292,8 +292,8 @@ class GuessViewModelTest {
         // Finally, check the victory and gameOver variables
         // Victory should be true, but gameOver is false, since
         // we got it correct in 1 attempt.
-        assertEquals(true, model.victory)
-        assertEquals(false, model.gameOver)
+        assertEquals(true, model.victory.value)
+        assertEquals(true, model.gameOver.value)
 
     }
 
@@ -321,8 +321,8 @@ class GuessViewModelTest {
         assertEquals(0, model.previousGuesses.size)
         assertEquals(5, model.guess.size)
         assertEquals(true, model.canSubmit)
-        assertEquals(false, model.gameOver)
-        assertEquals(false, model.victory)
+        assertEquals(false, model.gameOver.value)
+        assertEquals(false, model.victory.value)
 
         // Try to submit
         model.submit()
@@ -348,8 +348,8 @@ class GuessViewModelTest {
         assertEquals(Hint.INCORRECT, model.getHint("Y"))
 
         // Finally, check the victory and gameOver variables
-        assertEquals(true, model.gameOver)
-        assertEquals(false, model.victory)
+        assertEquals(true, model.gameOver.value)
+        assertEquals(false, model.victory.value)
 
     }
 
@@ -377,8 +377,8 @@ class GuessViewModelTest {
         assertEquals(0, model.previousGuesses.size)
         assertEquals(5, model.guess.size)
         assertEquals(true, model.canSubmit)
-        assertEquals(false, model.gameOver)
-        assertEquals(false, model.victory)
+        assertEquals(false, model.gameOver.value)
+        assertEquals(false, model.victory.value)
 
         // Try to submit
         model.submit()
@@ -404,8 +404,8 @@ class GuessViewModelTest {
         assertEquals(Hint.CORRECT, model.getHint("S"))
 
         // Finally, check the victory and gameOver variables.
-        assertEquals(true, model.victory)
-        assertEquals(true, model.gameOver)
+        assertEquals(true, model.victory.value)
+        assertEquals(true, model.gameOver.value)
 
     }
 

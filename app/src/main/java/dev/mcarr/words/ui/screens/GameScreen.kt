@@ -65,7 +65,11 @@ fun GameScreen(
     }
 
     var victory by remember {
-        mutableStateOf(guessModel.victory)
+        guessModel.victory
+    }
+
+    var gameOver by remember {
+        guessModel.gameOver
     }
 
     val guessesToShow = remember {
