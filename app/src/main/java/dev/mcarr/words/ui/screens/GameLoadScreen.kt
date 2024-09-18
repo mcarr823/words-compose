@@ -33,6 +33,25 @@ import dev.mcarr.words.ui.theme.Blue
 import dev.mcarr.words.viewmodels.GameLoadScreenViewModel
 import dev.mcarr.words.viewmodels.GuessViewModel
 
+/**
+ * Loading screen to display prior to starting the game.
+ *
+ * This screen displays a generic loading message while
+ * the app attempts to retrieve a random word and setup
+ * the game before moving onto the GameScreen component.
+ *
+ * @param paddingValues Padding around the screen components
+ * @param model Viewmodel containing the screen variables
+ * @param guessViewModel Viewmodel containing the state of the
+ * game which we are preparing
+ * @param playNow Callback to invoke when the user taps on
+ * the Play button after the viewmodel is initialized
+ * @param goBack Callback to invoke when the user taps on
+ * the Back button after initialization fails
+ *
+ * @see GameLoadScreenViewModel
+ * @see GuessViewModel
+ * */
 @Composable
 fun GameLoadScreen(
     paddingValues: PaddingValues,
@@ -119,7 +138,12 @@ fun GameLoadScreen(
     LaunchedEffect(key1 = downloadAttempt) {
 
         try{
+
+            // Run firstTimeInit every time the screen displays.
+            // It won't actually do anything unless it needs to,
+            // so it's safe to run multiple times.
             model.firstTimeInit(context)
+
             val word = model.getWord(context) ?: throw Exception("Failed to load word")
             if (word.isBlank()) throw Exception("Invalid word")
             guessViewModel.start(word)

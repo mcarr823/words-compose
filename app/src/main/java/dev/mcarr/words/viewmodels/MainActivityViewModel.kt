@@ -7,6 +7,8 @@ import dev.mcarr.words.enums.Destination
 /**
  * Viewmodel for MainActivity.
  *
+ * Used for navigation purposes.
+ *
  * @see dev.mcarr.words.MainActivity
  * */
 class MainActivityViewModel : ViewModel() {

@@ -47,8 +47,12 @@ import dev.mcarr.words.viewmodels.GuessViewModel
  * @param paddingValues Padding around the screen components
  * @param model Viewmodel containing the settings and
  * current guesses.
+ * @param playAgain Callback to invoke if the player finishes
+ * the game and presses Play Again
+ * @param goHome Callback to invoke if the player finishes
+ * the game and presses Finish
  *
- * @see GameScreenViewModel
+ * @see GuessViewModel
  * */
 @Composable
 fun GameScreen(

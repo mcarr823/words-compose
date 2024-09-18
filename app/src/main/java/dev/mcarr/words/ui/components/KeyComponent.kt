@@ -41,6 +41,22 @@ import dev.mcarr.words.ui.theme.KeyComponentTextStyle
 import dev.mcarr.words.ui.theme.LetterComponentTextStyle
 import dev.mcarr.words.ui.theme.Orange
 
+/**
+ * A single key on the virtual keyboard.
+ *
+ * Used as part of a KeyboardComponent to display
+ * a single key.
+ *
+ * The key is potentially colored with a hint based
+ * on which guesses the player has made.
+ *
+ * @param letter The alpha key to display
+ * @param hint Hint to use for coloring purposes
+ * @param width Width of the key in Dp
+ * @param pressKey Callback to invoke when tapping on the component
+ *
+ * @see KeyboardComponent
+ * */
 @Composable
 fun KeyComponent(
     letter: String,
@@ -81,6 +97,22 @@ fun KeyComponent(
 
 }
 
+/**
+ * A single key on the virtual keyboard.
+ *
+ * Used as part of a KeyboardComponent to display
+ * a single key.
+ *
+ * The key is potentially colored with a hint based
+ * on which guesses the player has made.
+ *
+ * @param icon The image to display on the key
+ * @param hint Hint to use for coloring purposes
+ * @param width Width of the key in Dp
+ * @param onClick Callback to invoke when tapping on the component
+ *
+ * @see KeyboardComponent
+ * */
 @Composable
 fun KeyComponent(
     icon: ImageVector,

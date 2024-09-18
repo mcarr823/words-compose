@@ -9,6 +9,14 @@ import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.classes.HintedString
 import dev.mcarr.words.enums.Hint
 
+/**
+ * Viewmodel containing all of the data needed to play
+ * a game.
+ *
+ * This viewmodel is used by several different components
+ * in order to provide coloring hints, display previous
+ * guesses, and to generally facilitate the actual gameplay.
+ * */
 class GuessViewModel : ViewModel() {
 
     /**

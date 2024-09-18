@@ -24,7 +24,11 @@ import dev.mcarr.words.ui.components.NavCardWithIcon
 import dev.mcarr.words.ui.components.PaddedText
 import dev.mcarr.words.ui.components.PreviewComponent
 
-
+/**
+ * Screen for displaying app information and relevant links.
+ *
+ * @param paddingValues Padding around the screen components
+ * */
 @Composable
 fun AboutScreen(
     paddingValues: PaddingValues

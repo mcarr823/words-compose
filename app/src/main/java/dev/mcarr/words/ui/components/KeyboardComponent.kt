@@ -22,6 +22,25 @@ import dev.mcarr.words.classes.HintedLetter
 import dev.mcarr.words.enums.Hint
 import dev.mcarr.words.viewmodels.GuessViewModel
 
+/**
+ * A virtual, on-screen keyboard.
+ *
+ * Used to display a set of alpha and modifier keys
+ * which the player can tap on.
+ *
+ * This is used instead of the soft keyboard:
+ * - for consistency on different devices
+ * - to strictly control input
+ * - to show hinting on individual keys based on user input
+ *
+ * @param model Viewmodel which provides hints and accepts input
+ * based on which key is pressed.
+ * @param modifier Modifier to alter the size and appearance of
+ * the keyboard as needed.
+ *
+ * @see GuessViewModel
+ * @see KeyComponent
+ * */
 @Composable
 fun KeyboardComponent(
     model: GuessViewModel,
