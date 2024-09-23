@@ -3,6 +3,10 @@
 [![Compile debug](https://github.com/mcarr823/words-compose/actions/workflows/compile.yml/badge.svg)](https://github.com/mcarr823/words-compose/actions/workflows/compile.yml)
 [![Unit tests](https://github.com/mcarr823/words-compose/actions/workflows/unittest.yml/badge.svg)](https://github.com/mcarr823/words-compose/actions/workflows/unittest.yml)
 
+<a href="https://play.google.com/store/apps/details?id=dev.mcarr.words&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+    <img alt="Get it on Google Play" src="screenshots/google-play-badge.png" width="200"/>
+</a>
+
 Words is a free, open source Wordle clone.
 
 - No ads
@@ -27,6 +31,8 @@ Words is a free, open source Wordle clone.
 This app uses the Github icon provided by Github, per their [terms of use](https://github.com/logos).
 
 Other icons are provided by Google under Apache License Version 2.0 as part of their [Material Icons](https://developers.google.com/fonts/docs/material_icons) library.
+
+Google Play and the Google Play logo are trademarks of Google LLC.
 
 The source code for this app itself is GPLv3 licensed. See the [LICENSE file](./LICENSE).
 
