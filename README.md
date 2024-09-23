@@ -25,6 +25,9 @@ Words is a free, open source Wordle clone.
 - Setting to adjust the number of attempts
 - Setting to adjust the target word length
 - Setting to enable/disable hints
+- Add option to look up word definition upon finishing a round
+- Add f-droid build
+- Add google play review link
 
 ## Credits
 
