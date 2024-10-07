@@ -99,3 +99,20 @@ fun PreviewLetterComponent(){
         }
     }
 }
+
+@Preview
+@Composable
+fun PreviewLetterComponentDark(){
+    PreviewComponent(darkMode = true) {
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            LetterComponent(HintedLetter("", Hint.NONE))
+            LetterComponent(HintedLetter("B", Hint.CORRECT))
+            LetterComponent(HintedLetter("C", Hint.INCORRECT))
+            LetterComponent(HintedLetter("D", Hint.CORRECT_ANOTHER))
+            LetterComponent(HintedLetter("E", Hint.WRONG_PLACEMENT))
+        }
+    }
+}

@@ -90,3 +90,19 @@ fun PreviewWordComponent(){
         }
     }
 }
+
+@Preview
+@Composable
+fun PreviewWordComponentDark(){
+    PreviewComponent(darkMode = true) {
+        Column {
+            HintedString(displayWord = "ABCDE", targetWord = "WORDS")
+            WordComponent(HintedString(displayWord = "ABCDE", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "FGHIJ", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "KLMNO", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "PQRST", targetWord = "WORDS"))
+            WordComponent(HintedString(displayWord = "UVWXY", targetWord = "WORDS"))
+            WordComponent(word = listOf("Z"), targetLength = 5)
+        }
+    }
+}
