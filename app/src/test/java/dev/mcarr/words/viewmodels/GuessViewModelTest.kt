@@ -22,11 +22,11 @@ class GuessViewModelTest {
     fun defaultValuesTest(){
 
         assertEquals("", model.wordToGuess)
-        assertEquals("", model.guess.joinToString(""))
+        assertEquals("", model.guess.value.joinToString(""))
         assertEquals(false, model.canSubmit)
         assertEquals(false, model.victory.value)
         assertEquals(false, model.gameOver.value)
-        assertEquals(true, model.previousGuesses.isEmpty())
+        assertEquals(true, model.previousGuesses.value.isEmpty())
         assertEquals(true, model.hints.isEmpty())
 
     }
@@ -39,8 +39,8 @@ class GuessViewModelTest {
     fun startGameTest(){
         model.start("WORDS")
         assertEquals("WORDS", model.wordToGuess)
-        assertEquals(true, model.previousGuesses.isEmpty())
-        assertEquals(true, model.guess.isEmpty())
+        assertEquals(true, model.previousGuesses.value.isEmpty())
+        assertEquals(true, model.guess.value.isEmpty())
         assertEquals(false, model.canSubmit)
         assertEquals(false, model.victory.value)
         assertEquals(false, model.gameOver.value)
@@ -62,34 +62,34 @@ class GuessViewModelTest {
     fun pressKeyTest(){
         model.start("WORDS")
 
-        assertEquals(true, model.guess.isEmpty())
+        assertEquals(true, model.guess.value.isEmpty())
         assertEquals(false, model.canSubmit)
 
         model.pressKey("A")
-        assertEquals(1, model.guess.size)
+        assertEquals(1, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         model.pressKey("B")
-        assertEquals(2, model.guess.size)
+        assertEquals(2, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         model.pressKey("C")
-        assertEquals(3, model.guess.size)
+        assertEquals(3, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         model.pressKey("D")
-        assertEquals(4, model.guess.size)
+        assertEquals(4, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         model.pressKey("E")
-        assertEquals(5, model.guess.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(true, model.canSubmit)
 
         // Length should still be 5, since the game was
         // started with the word "WORDS", which is 5
         // letters, and thus the max number we can enter.
         model.pressKey("F")
-        assertEquals(5, model.guess.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(true, model.canSubmit)
     }
 
@@ -105,23 +105,23 @@ class GuessViewModelTest {
     fun backspaceTest(){
         model.start("WORDS")
 
-        assertEquals(0, model.guess.size)
+        assertEquals(0, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         // Enter a character, then check the guess length
         model.pressKey("A")
-        assertEquals(1, model.guess.size)
+        assertEquals(1, model.guess.value.size)
 
         // Press backspace to delete that character, then
         // confirm that the length is back to 0
         model.backspace()
-        assertEquals(0, model.guess.size)
+        assertEquals(0, model.guess.value.size)
 
         // Press backspace again. It shouldn't change
         // anything this time, since a string can't have
         // a negative length.
         model.backspace()
-        assertEquals(0, model.guess.size)
+        assertEquals(0, model.guess.value.size)
 
         // Now let's do the same, but with more characters,
         // to make sure it works with longer strings.
@@ -130,30 +130,30 @@ class GuessViewModelTest {
         model.pressKey("C")
         model.pressKey("D")
         model.pressKey("E")
-        assertEquals(5, model.guess.size)
+        assertEquals(5, model.guess.value.size)
 
         model.backspace()
-        assertEquals(4, model.guess.size)
+        assertEquals(4, model.guess.value.size)
 
         model.backspace()
-        assertEquals(3, model.guess.size)
+        assertEquals(3, model.guess.value.size)
 
         model.backspace()
-        assertEquals(2, model.guess.size)
+        assertEquals(2, model.guess.value.size)
 
         model.backspace()
-        assertEquals(1, model.guess.size)
+        assertEquals(1, model.guess.value.size)
 
         model.backspace()
-        assertEquals(0, model.guess.size)
+        assertEquals(0, model.guess.value.size)
 
         // Finally, let's make sure it's removing the LAST
         // character from the string, not the first character.
         model.pressKey("A")
         model.pressKey("B")
-        assertEquals("AB", model.guess.joinToString(""))
+        assertEquals("AB", model.guess.value.joinToString(""))
         model.backspace()
-        assertEquals("A", model.guess[0])
+        assertEquals("A", model.guess.value[0])
 
     }
 
@@ -177,8 +177,8 @@ class GuessViewModelTest {
         model.pressKey("R")
         model.pressKey("D")
 
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(4, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(4, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         // Try to submit, even though canSubmit is false
@@ -187,8 +187,8 @@ class GuessViewModelTest {
         // The number of previous guesses should still be 0,
         // and the current guess should still be the same length
         // as before since it wasn't wiped.
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(4, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(4, model.guess.value.size)
 
     }
 
@@ -214,8 +214,8 @@ class GuessViewModelTest {
         model.pressKey("D")
         model.pressKey("Y")
 
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(true, model.canSubmit)
 
         // Try to submit
@@ -225,8 +225,8 @@ class GuessViewModelTest {
         // The current guess should be reset to an empty string,
         // and we can't submit again yet because we haven't entered
         // another guess.
-        assertEquals(1, model.previousGuesses.size)
-        assertEquals(0, model.guess.size)
+        assertEquals(1, model.previousGuesses.value.size)
+        assertEquals(0, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDY
@@ -260,8 +260,8 @@ class GuessViewModelTest {
         model.pressKey("D")
         model.pressKey("S")
 
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(true, model.canSubmit)
         assertEquals(false, model.gameOver.value)
         assertEquals(false, model.victory.value)
@@ -273,8 +273,8 @@ class GuessViewModelTest {
         // since we end the game immediately on a correct guess.
         // The current guess should still be equal to the guess,
         // and we can't submit again.
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDS
@@ -318,8 +318,8 @@ class GuessViewModelTest {
         model.pressKey("D")
         model.pressKey("Y")
 
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(true, model.canSubmit)
         assertEquals(false, model.gameOver.value)
         assertEquals(false, model.victory.value)
@@ -332,8 +332,8 @@ class GuessViewModelTest {
         // The current guess should be reset to an empty string,
         // and we can't submit again yet because we haven't entered
         // another guess.
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDY
@@ -375,8 +375,8 @@ class GuessViewModelTest {
         model.pressKey("D")
         model.pressKey("S")
 
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(true, model.canSubmit)
         assertEquals(false, model.gameOver.value)
         assertEquals(false, model.victory.value)
@@ -388,8 +388,8 @@ class GuessViewModelTest {
         // a correct guess ends the game immediately.
         // The current guess should still be the last guess,
         // and we can't submit again.
-        assertEquals(0, model.previousGuesses.size)
-        assertEquals(5, model.guess.size)
+        assertEquals(0, model.previousGuesses.value.size)
+        assertEquals(5, model.guess.value.size)
         assertEquals(false, model.canSubmit)
 
         // We should also have 5 hints now, since our guess WORDS

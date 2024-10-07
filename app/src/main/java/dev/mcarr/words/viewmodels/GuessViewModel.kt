@@ -37,7 +37,7 @@ class GuessViewModel : ViewModel() {
      * The player's current guess as to what the word
      * might be.
      * */
-    var guess = mutableStateListOf<String>()
+    var guess = mutableStateOf<List<String>>(listOf())
 
     /**
      * Boolean indicating whether the guess is in a
@@ -65,7 +65,7 @@ class GuessViewModel : ViewModel() {
      * Defaults to a list of `guessesToShow` blank strings.
      * Each string is padded to a length of `targetLength`.
      * */
-    var previousGuesses = mutableStateListOf<HintedString>()
+    var previousGuesses = mutableStateOf<List<HintedString>>(listOf())
 
     /**
      * A map of hints for each letter of the alphabet.
@@ -87,13 +87,13 @@ class GuessViewModel : ViewModel() {
      * */
     fun pressKey(letter: String){
 
-        if (guess.size == wordToGuess.length){
+        if (guess.value.size == wordToGuess.length){
             return
         }
 
-        guess.add(letter)
+        guess.value += letter
 
-        if (guess.size == wordToGuess.length){
+        if (guess.value.size == wordToGuess.length){
             canSubmit = true
         }
     }
@@ -102,7 +102,7 @@ class GuessViewModel : ViewModel() {
      * Deletes the last character of the current guess.
      * */
     fun backspace(){
-        guess.removeLastOrNull()
+        guess.value = guess.value.dropLast(1)
         canSubmit = false
     }
 
@@ -114,8 +114,8 @@ class GuessViewModel : ViewModel() {
      * */
     fun start(word: String){
         wordToGuess = word
-        previousGuesses.clear()
-        guess.clear()
+        previousGuesses.value = listOf()
+        guess.value = listOf()
         canSubmit = false
         hints.clear()
         victory.value = false
@@ -132,7 +132,7 @@ class GuessViewModel : ViewModel() {
 
         if (!canSubmit) return
 
-        val guessString = guess.joinToString("")
+        val guessString = guess.value.joinToString("")
 
         victory.value = guessString == wordToGuess
         //println("Comparing $guessString to $wordToGuess: ${victory.value}")
@@ -148,12 +148,12 @@ class GuessViewModel : ViewModel() {
             }
         }
 
-        if (victory.value || previousGuesses.size == guessesAllowed - 1){
+        if (victory.value || previousGuesses.value.size == guessesAllowed - 1){
             gameOver.value = true
             canSubmit = false
         }else{
-            previousGuesses.add(newGuess)
-            guess.clear()
+            previousGuesses.value += newGuess
+            guess.value = listOf()
             canSubmit = false
         }
 

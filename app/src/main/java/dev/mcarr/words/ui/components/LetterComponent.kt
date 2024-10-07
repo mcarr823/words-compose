@@ -46,7 +46,7 @@ fun LetterComponent(
     val textColor = hintedLetter.getTextColor()
     val bgColor = hintedLetter.getBgColor()
 
-    var letter = remember {
+    val letter = remember {
         if (hintedLetter.letter.isBlank())
             " "
         else

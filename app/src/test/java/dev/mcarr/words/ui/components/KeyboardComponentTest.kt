@@ -2,11 +2,7 @@ package dev.mcarr.words.ui.components
 
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
-import androidx.compose.ui.test.assertTextEquals
-import androidx.compose.ui.test.assertValueEquals
-import androidx.compose.ui.test.onChild
 import androidx.compose.ui.test.performClick
-import dev.mcarr.words.enums.Hint
 import dev.mcarr.words.ui.AbstractUiUnitTest
 import dev.mcarr.words.viewmodels.GuessViewModel
 import org.junit.Assert.assertEquals
@@ -54,7 +50,7 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
                     // Confirm that the value of model.guess.value
                     // equals the letter of the key we just
                     // pressed
-                    assertEquals(letter, model.guess[0])
+                    assertEquals(letter, model.guess.value[0])
 
                     // Delete it afterwards so we can check
                     // the next key.
@@ -89,9 +85,9 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
         // so let's try clicking it and see if it deletes
         // a character from the current guess.
         model.pressKey("A")
-        assertEquals("A", model.guess[0])
+        assertEquals("A", model.guess.value[0])
         nodes[0].performClick()
-        assertEquals(true, model.guess.isEmpty())
+        assertEquals(true, model.guess.value.isEmpty())
 
         // The second result should be the Enter button,
         // so let's enter a valid guess and see if it submits.
@@ -100,11 +96,11 @@ class KeyboardComponentTest : AbstractUiUnitTest() {
         model.pressKey("C")
         model.pressKey("D")
         model.pressKey("E")
-        assertEquals("ABCDE", model.guess.joinToString(""))
-        assertEquals(0, model.previousGuesses.size)
+        assertEquals("ABCDE", model.guess.value.joinToString(""))
+        assertEquals(0, model.previousGuesses.value.size)
         nodes[1].performClick()
-        assertEquals(true, model.guess.isEmpty())
-        assertEquals(1, model.previousGuesses.size)
+        assertEquals(true, model.guess.value.isEmpty())
+        assertEquals(1, model.previousGuesses.value.size)
 
 
     }
