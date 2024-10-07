@@ -88,21 +88,14 @@ fun GameScreen(
         guessModel.guessesAllowed - 1
     }
 
-    ConstraintLayout(
-        modifier = Modifier.fillMaxSize().padding(paddingValues)
+    Column(
+        modifier = Modifier.fillMaxSize().padding(paddingValues),
+        verticalArrangement = Arrangement.Bottom
     ){
-
-        val (refPreviousGuesses, refCurrentGuess, refKeyboard) = createRefs()
 
         LazyColumn(
             verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier.fillMaxWidth().constrainAs(refPreviousGuesses){
-                top.linkTo(parent.top)
-                bottom.linkTo(refCurrentGuess.top)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-                height = Dimension.fillToConstraints
-            }
+            modifier = Modifier.fillMaxWidth()
         ) {
 
             items(guessesToShow){ i ->
@@ -117,22 +110,10 @@ fun GameScreen(
 
         WordComponent(
             currentGuess,
-            guessModel.wordToGuess.length,
-            modifier = Modifier.constrainAs(refCurrentGuess){
-                bottom.linkTo(refKeyboard.top, margin = 16.dp)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
+            wordToGuess.length
         )
 
-        KeyboardComponent(
-            guessModel,
-            modifier = Modifier.constrainAs(refKeyboard){
-                bottom.linkTo(parent.bottom)
-                start.linkTo(parent.start)
-                end.linkTo(parent.end)
-            }
-        )
+        KeyboardComponent(guessModel)
 
     }
 
