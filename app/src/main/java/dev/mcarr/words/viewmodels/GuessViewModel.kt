@@ -1,5 +1,8 @@
 package dev.mcarr.words.viewmodels
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -173,6 +176,30 @@ class GuessViewModel : ViewModel() {
      * */
     fun getHint(letter: String): Hint {
         return hints.find { it.letter == letter }?.hint ?: Hint.NONE
+    }
+
+    /**
+     * Look up the word which was meant to be guessed.
+     *
+     * The lookup occurs by opening a web browser, rather
+     * than by directly talking to an API, since those usually
+     * have limitations on usage.
+     *
+     * At this point in time the lookup uses Merriam-Webster.
+     * eg. https://www.merriam-webster.com/dictionary/test
+     *
+     * @param c Context used to open the webview
+     * */
+    fun lookUpWord(c: Context){
+        val openURL = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.Builder()
+                .scheme("https")
+                .authority("www.merriam-webster.com")
+                .appendPath("dictionary")
+                .appendEncodedPath(wordToGuess)
+                .build()
+        }
+        c.startActivity(openURL)
     }
 
 }

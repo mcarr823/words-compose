@@ -22,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -63,6 +64,7 @@ fun GameScreen(
 ) {
 
     // val kc = LocalSoftwareKeyboardController.current
+    val c = LocalContext.current
 
     var wordToGuess = guessModel.wordToGuess
 
@@ -153,6 +155,12 @@ fun GameScreen(
                         padBottom = 16,
                         padTop = 16
                     )
+                    TextButton(
+                        onClick = { guessModel.lookUpWord(c) }
+                    ) {
+                        Text("What does that word mean?")
+                    }
+                    Spacer(Modifier.height(16.dp))
                     Row(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.padding(8.dp).fillMaxWidth()
