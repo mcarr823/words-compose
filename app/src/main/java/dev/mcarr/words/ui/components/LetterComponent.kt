@@ -34,8 +34,8 @@ import dev.mcarr.words.ui.theme.LetterComponentTextStyle
  * side by side to spell out a word, such as in a
  * WordComponent.
  *
- * @param letter The letter to display
- * @param hint Color hinting to apply
+ * @param hintedLetter The letter to display, including the
+ * color hinting to apply to the component
  * @see WordComponent
  * */
 @Composable
@@ -74,6 +74,17 @@ fun LetterComponent(
 
 }
 
+/**
+ * Displays a single letter of a guessed word.
+ *
+ * A series of LetterComponents should be displayed
+ * side by side to spell out a word, such as in a
+ * WordComponent.
+ *
+ * @param letter The letter to display
+ * @param hint Color hinting to apply
+ * @see WordComponent
+ * */
 @Composable
 fun LetterComponent(
     text: String,
